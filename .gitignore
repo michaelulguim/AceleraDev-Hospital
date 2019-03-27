@@ -24,10 +24,7 @@ HELP.md
 /nbdist/
 /.nb-gradle/
 /build/
-<<<<<<< HEAD
 nb-configuration.xml
-=======
->>>>>>> CRUD paciente
 
 ### VS Code ###
 .vscode/
