@@ -16,22 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/produtos")
+@RequestMapping("/api/v1/estoque")
 public class ProdutoController {
 
     @Autowired
+    ProdutoService produtoService;
+    
+    @Autowired
     ProdutoRepository produtoRepository;
-
-    // ProdutoService produtoService = new ProdutoService();
-    @GetMapping
-    public ResponseEntity<List<Produto>> listar() {
-        //List<Produto> produtos = produtoService.getProdutos();
-        List<Produto> produtos = produtoRepository.findAll();
-        // if(produtos==null){
-        // return ResponseEntity.noContent().build();
-        //}
-        return ResponseEntity.ok().body(produtos);
-    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Produto> getUusuario(@PathVariable(value = "id") Long id) {
