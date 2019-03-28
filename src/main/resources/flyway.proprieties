@@ -1,0 +1,5 @@
+flyway.user=postgres
+flyway.password=root
+flyway.schemas=app-db
+flyway.url=jdbc:postgresql:mem:gestao_hospitais
+flyway.locations=filesystem:resources/db/migration
