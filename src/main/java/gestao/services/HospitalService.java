@@ -2,7 +2,6 @@ package gestao.services;
 
 import gestao.entities.Hospital;
 import gestao.repositories.HospitalRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,15 +10,18 @@ import java.util.Optional;
 @Service
 public class HospitalService {
 
-    @Autowired
-    HospitalRepository hospitalRepository;
+    private final HospitalRepository hospitalRepository;
+
+    public HospitalService(HospitalRepository hospitalRepository) {
+        this.hospitalRepository = hospitalRepository;
+    }
 
     public List<Hospital> findAll() {
         return this.hospitalRepository.findAll();
     }
 
-    public void create(Hospital hospital) {
-        this.hospitalRepository.save(hospital);
+    public Hospital create(Hospital hospital) {
+        return this.hospitalRepository.save(hospital);
     }
 
     public Optional<Hospital> find(Long id) {
@@ -27,13 +29,16 @@ public class HospitalService {
     }
 
     public boolean update(Long id, Hospital hospital) {
-        return this.hospitalRepository.findById(id)
-                .map(record -> {
-                    record.setNome(hospital.getNome());
-                    record.setN_leitos(hospital.getN_leitos());
-                    record.setEndereco(hospital.getEndereco());
-                    return true;
-                }).orElse(false);
+        if (! this.hospitalRepository.findById(id).isPresent()) {
+            return false;
+        }
+
+        Hospital record = new Hospital();
+        record.setNome(hospital.getNome());
+        record.setN_leitos(hospital.getN_leitos());
+        record.setEndereco(hospital.getEndereco());
+        this.hospitalRepository.save(record);
+        return true;
     }
 
     public boolean delete(Long id) {
