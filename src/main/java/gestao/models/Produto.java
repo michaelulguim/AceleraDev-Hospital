@@ -16,9 +16,9 @@ public class Produto {
     private Long Id;
     @NotEmpty
     private String nome;
-    //@NotEmpty
+    @NotEmpty
     private String descricao;
-    //@Min(1)
+    @Min(1)
     private Integer quantidade;
 
     public Long getId() {
@@ -88,7 +88,5 @@ public class Produto {
         }
         return true;
     }
-
-    
-    
+ 
 }

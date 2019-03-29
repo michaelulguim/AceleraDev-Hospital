@@ -4,7 +4,6 @@ import gestao.models.Produto;
 import gestao.repositories.ProdutoRepository;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +36,7 @@ public class ProdutoService {
         if(!produtoRepository.existsById(id) || resultado.hasErrors()){
             return false;
         }
-        Produto p = produtoRepository.getOne(id);
+        Produto p = produtoRepository.findById(id).get();
         p.setNome(produto.getNome());
         p.setDescricao(produto.getDescricao());
         p.setQuantidade(produto.getQuantidade());
