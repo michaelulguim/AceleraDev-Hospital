@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
+@Table(name= "paciente")
 public class Paciente {
 
 
@@ -23,7 +24,7 @@ public class Paciente {
 
     private Long hospital;
 
-    @OneToMany(mappedBy = "historicopaciente", fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     private List<HistoricoPaciente> historicoPaciente;
 
 
@@ -85,6 +86,10 @@ public class Paciente {
     }
 
     public List<HistoricoPaciente> getHistoricoPaciente() {
+        return null;
+    }
+
+    public List<HistoricoPaciente> pegaHistoricoPaciente() {
         return historicoPaciente;
     }
 
