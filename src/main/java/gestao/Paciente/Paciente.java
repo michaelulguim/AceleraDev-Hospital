@@ -1,15 +1,12 @@
-package gestao.models.Paciente;
+package gestao.Paciente;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import gestao.HistoricoPaciente.HistoricoPaciente;
+
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Entity
 public class Paciente {
@@ -20,13 +17,14 @@ public class Paciente {
     private Long cpf;
     private String nome;
     private LocalDate dataNascimento;
-    private char sexo;
+    private SexoPacienteENUM sexo;
     private LocalDateTime ultimoCheckin;
     private boolean emAtendimento;
 
     private Long hospital;
 
-
+    @OneToMany(mappedBy = "historicopaciente", fetch = FetchType.LAZY)
+    private List<HistoricoPaciente> historicoPaciente;
 
 
 
@@ -54,11 +52,11 @@ public class Paciente {
         this.dataNascimento = dataNascimento;
     }
 
-    public char getSexo() {
+    public SexoPacienteENUM getSexo() {
         return sexo;
     }
 
-    public void setSexo(char sexo) {
+    public void setSexo(SexoPacienteENUM sexo) {
         this.sexo = sexo;
     }
 
@@ -84,5 +82,13 @@ public class Paciente {
 
     public void setEmAtendimento(boolean emAtendimento) {
         this.emAtendimento = emAtendimento;
+    }
+
+    public List<HistoricoPaciente> getHistoricoPaciente() {
+        return historicoPaciente;
+    }
+
+    public void setHistoricoPaciente(List<HistoricoPaciente> historicoPaciente) {
+        this.historicoPaciente = historicoPaciente;
     }
 }

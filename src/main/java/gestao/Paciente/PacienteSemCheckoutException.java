@@ -1,4 +1,4 @@
-package gestao.Exceptions;
+package gestao.Paciente;
 
 public class PacienteSemCheckoutException extends Exception {
 
