@@ -1,6 +1,6 @@
-package gestao.models.Paciente;
+package gestao.HistoricoPaciente;
 
-import gestao.repository.PacienteRepository;
+import gestao.Paciente.Paciente;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,13 +11,12 @@ public class HistoricoPaciente {
 
     @Id
     private LocalDateTime dataEntradaHospital;
-    private LocalDateTime  dataSaidaHospital;
+    private LocalDateTime dataSaidaHospital;
     private String leito;
     private Long hospital;
 
-   @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Paciente paciente;
-
 
 
     public LocalDateTime getDataEntradaHospital() {
@@ -52,12 +51,12 @@ public class HistoricoPaciente {
         this.hospital = hospital;
     }
 
-    public Paciente getPaciente() {
+   /*public Paciente getPaciente() {
         return paciente;
     }
 
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
-    }
+    }*/
 
 }
