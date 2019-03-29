@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 
 @Entity
+@Table(name = "historico_paciente")
 public class HistoricoPaciente {
 
     @Id
@@ -15,8 +16,8 @@ public class HistoricoPaciente {
     private String leito;
     private Long hospital;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Paciente paciente;
+    @ManyToOne
+     private Paciente paciente;
 
 
     public LocalDateTime getDataEntradaHospital() {
@@ -51,12 +52,12 @@ public class HistoricoPaciente {
         this.hospital = hospital;
     }
 
-   /*public Paciente getPaciente() {
+   public Paciente getPaciente() {
         return paciente;
     }
 
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
-    }*/
+    }
 
 }

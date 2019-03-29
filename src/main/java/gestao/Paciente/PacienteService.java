@@ -1,10 +1,8 @@
 package gestao.Paciente;
 
 import gestao.HistoricoPaciente.HistoricoPaciente;
-import gestao.HistoricoPaciente.HistoricoPacienteRepository;
 //import gestao.Paciente.Paciente.HistoricoPaciente;
 //import gestao.Paciente.Paciente.Paciente;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,8 +35,8 @@ public class PacienteService {
     }
 
     public List<HistoricoPaciente> historicoPaciente(long cpf) {
-       // Paciente paciente = pacienteRepository.findByCpf(cpf);
-        return pacienteRepository.findByCpf(cpf).getHistoricoPaciente();
+        Paciente paciente = pacienteRepository.findByCpf(cpf);
+        return pacienteRepository.findByCpf(cpf).pegaHistoricoPaciente();
     }
 
 
