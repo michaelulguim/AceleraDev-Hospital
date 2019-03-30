@@ -1,7 +1,7 @@
-package gestao.services;
+package gestao.Hospital;
 
-import gestao.entities.Hospital;
-import gestao.repositories.HospitalRepository;
+import gestao.Hospital.Hospital;
+import gestao.Hospital.HospitalRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

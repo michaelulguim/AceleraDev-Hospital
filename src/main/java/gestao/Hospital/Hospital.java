@@ -1,4 +1,6 @@
-package gestao.entities;
+package gestao.Hospital;
+
+import gestao.BancoDeSangue.BancoDeSangue;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,6 +17,8 @@ public class Hospital {
     private String nome;
     private String endereco;
     private Integer n_leitos;
+
+
 
 
     public Long getId() {

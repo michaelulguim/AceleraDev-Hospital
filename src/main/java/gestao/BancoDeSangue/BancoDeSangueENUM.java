@@ -1,0 +1,5 @@
+package gestao.BancoDeSangue;
+
+public enum BancoDeSangueENUM {
+    A_POSITIVO, A_NEGATIVO, B_POSITIVO, B_NEGATIVO, AB_POSITIVO, AB_NEGATIVO, O_POSITIVO, O_NEGATIVO;
+}

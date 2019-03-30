@@ -1,7 +1,5 @@
-package gestao.controllers;
+package gestao.Hospital;
 
-import gestao.entities.Hospital;
-import gestao.services.HospitalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
