@@ -1,7 +1,5 @@
-package gestao.services;
+package gestao.produto;
 
-import gestao.models.Produto;
-import gestao.repositories.ProdutoRepository;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +22,10 @@ public class ProdutoService {
         return produtoRepository.findById(id);
     }
 
+    public Produto create(Produto p){
+        return this.produtoRepository.save(p);
+    }
+    
     public boolean adicionar(@Valid Produto produto, BindingResult resultado) {
         if (resultado.hasErrors()) {
             return false;
@@ -32,7 +34,7 @@ public class ProdutoService {
         return true;
     }
 
-    public boolean atualizar(Long id, @Valid Produto produto, BindingResult resultado) {
+    public boolean update(Long id, @Valid Produto produto, BindingResult resultado) {
         if(!produtoRepository.existsById(id) || resultado.hasErrors()){
             return false;
         }
@@ -44,7 +46,7 @@ public class ProdutoService {
         return true;
     }
 
-    public boolean deletar(Long id) {
+    public boolean delete(Long id) {
         if (produtoRepository.existsById(id)) {
             produtoRepository.deleteById(id);
             return true;

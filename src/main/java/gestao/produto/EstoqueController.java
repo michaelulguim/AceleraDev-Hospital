@@ -1,7 +1,7 @@
-package gestao.controllers;
+package gestao.produto;
 
-import gestao.models.Produto;
-import gestao.services.ProdutoService;
+import gestao.produto.Produto;
+import gestao.produto.ProdutoService;
 import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
@@ -42,18 +42,6 @@ public class EstoqueController {
         return ResponseEntity.notFound().build();
     }
 
-    /*
-    @GetMapping("/testePost")
-    public void adt(){
-        Produto p = new Produto();
-        p.setNome("Tes");
-        p.setDescricao("Tdes");
-        p.setQuantidade(2);
-        BindingResult resultado = null;
-        this.atualizar(11L, p);
-    }
-     */
-
     @PostMapping
     public ResponseEntity<String> add(@RequestBody @Valid Produto produto, BindingResult resultado) {
         if (produtoService.adicionar(produto, resultado)) {
@@ -65,7 +53,7 @@ public class EstoqueController {
 
     @PutMapping("/{id}")
     public ResponseEntity<String> atualizar(@PathVariable(value = "id") Long id, @RequestBody @Valid Produto produto, BindingResult resultado) {
-        if (produtoService.atualizar(id, produto, resultado)) {
+        if (produtoService.update(id, produto, resultado)) {
             return ResponseEntity.ok().body("Atualizado");
         }
         return ResponseEntity.badRequest().build();
@@ -74,7 +62,7 @@ public class EstoqueController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable(value = "id") Long id) {
-        if (produtoService.deletar(id)) {
+        if (produtoService.delete(id)) {
             return ResponseEntity.ok().body("Deletado");
         }
         return ResponseEntity.notFound().build();

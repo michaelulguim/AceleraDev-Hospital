@@ -1,5 +1,6 @@
-package gestao.models;
+package gestao.produto;
 
+import gestao.produto.Produto;
 import java.util.Collections;
 import java.util.List;
 
