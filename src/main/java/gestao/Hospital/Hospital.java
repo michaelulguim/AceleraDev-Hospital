@@ -1,11 +1,9 @@
 package gestao.Hospital;
 
-import gestao.BancoDeSangue.BancoDeSangue;
+import gestao.BancoDeSangue.BancoDeSangueENUM;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Map;
 
 @Entity
 public class Hospital {
@@ -15,10 +13,20 @@ public class Hospital {
     private Long id;
 
     private String nome;
-    private String endereco;
+    private String cep;
+    private String logradouro;
+    private String complemento;
+    private String bairro;
+    private String localidade;
+    private String uf;
+    private String numero;
+    private String formatted_address;
+
+
     private Integer n_leitos;
 
-
+    @ElementCollection
+    private Map<BancoDeSangueENUM, Integer>  bancoDeSangue;
 
 
     public Long getId() {
@@ -37,12 +45,68 @@ public class Hospital {
         this.nome = nome;
     }
 
-    public String getEndereco() {
-        return endereco;
+    public String getCep() {
+        return cep;
     }
 
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getLocalidade() {
+        return localidade;
+    }
+
+    public void setLocalidade(String localidade) {
+        this.localidade = localidade;
+    }
+
+    public String getUf() {
+        return uf;
+    }
+
+    public void setUf(String uf) {
+        this.uf = uf;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public String getFormatted_address() {
+        return formatted_address;
+    }
+
+    public void setFormatted_address(String formatted_address) {
+        this.formatted_address = formatted_address;
     }
 
     public Integer getN_leitos() {
@@ -51,5 +115,13 @@ public class Hospital {
 
     public void setN_leitos(Integer n_leitos) {
         this.n_leitos = n_leitos;
+    }
+
+    public Map<BancoDeSangueENUM, Integer> getBancoDeSangue() {
+        return bancoDeSangue;
+    }
+
+    public void setBancoDeSangue(Map<BancoDeSangueENUM, Integer> bancoDeSangue) {
+        this.bancoDeSangue = bancoDeSangue;
     }
 }

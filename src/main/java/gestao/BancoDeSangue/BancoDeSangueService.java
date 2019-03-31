@@ -4,41 +4,46 @@ import gestao.Hospital.Hospital;
 import gestao.Hospital.HospitalRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 public class BancoDeSangueService {
     private final HospitalRepository hospitalRepository;
 
-    private final BancoDeSangueRepository bancoDeSangueRepository;
 
-    public BancoDeSangueService(HospitalRepository hospitalRepository, BancoDeSangueRepository bancoDeSangueRepository) {
+
+    public BancoDeSangueService(HospitalRepository hospitalRepository) {
         this.hospitalRepository = hospitalRepository;
-        this.bancoDeSangueRepository = bancoDeSangueRepository;
     }
 
-    public void save(long cpf, BancoDeSangue bancoDeSangue) {
+    public Hospital add(long cpf, BancoDeSangueENUM tipo, Integer quantidadeEmLitros) {
         Hospital hospital = hospitalRepository.findById(cpf).get();
-        bancoDeSangue.setHospital(hospital);
+        Integer add = hospital.getBancoDeSangue().get(tipo);
+        add += quantidadeEmLitros;
+        Map<BancoDeSangueENUM, Integer> bancoDeSangue = hospital.getBancoDeSangue();
+        bancoDeSangue.put(tipo, add);
+        hospital.setBancoDeSangue(bancoDeSangue);
+        return hospitalRepository.save(hospital);
+    }
 
-        if(bancoDeSangue.getTipo().toString().trim().toUpperCase().equals("A+")){
-            bancoDeSangue.setTipo(BancoDeSangueENUM.A_POSITIVO);
-        } else if(bancoDeSangue.getTipo().toString().trim().toUpperCase().equals("A-")){
-            bancoDeSangue.setTipo(BancoDeSangueENUM.A_NEGATIVO);
-        } else if(bancoDeSangue.getTipo().toString().trim().toUpperCase().equals("B+")) {
-            bancoDeSangue.setTipo(BancoDeSangueENUM.B_POSITIVO);
-        } else if(bancoDeSangue.getTipo().toString().trim().toUpperCase().equals("B-")) {
-            bancoDeSangue.setTipo(BancoDeSangueENUM.B_NEGATIVO);
-        } else if(bancoDeSangue.getTipo().toString().trim().toUpperCase().equals("AB+")) {
-            bancoDeSangue.setTipo(BancoDeSangueENUM.AB_POSITIVO);
-        } else if(bancoDeSangue.getTipo().toString().trim().toUpperCase().equals("AB-")) {
-            bancoDeSangue.setTipo(BancoDeSangueENUM.AB_NEGATIVO);
-        } else if(bancoDeSangue.getTipo().toString().trim().toUpperCase().equals("O+")) {
-            bancoDeSangue.setTipo(BancoDeSangueENUM.O_POSITIVO);
-        } else if(bancoDeSangue.getTipo().toString().trim().toUpperCase().equals("O-")) {
-            bancoDeSangue.setTipo(BancoDeSangueENUM.O_NEGATIVO);
-        } else {
-            throw new IllegalArgumentException("Tipo sanguíneo inválido");
-        }
+    public Hospital remove(long cpf, BancoDeSangueENUM tipo, Integer quantidadeEmLitros) {
+        Hospital hospital = hospitalRepository.findById(cpf).get();
+        Integer sub = hospital.getBancoDeSangue().get(tipo);
+        sub -= quantidadeEmLitros;
+        if(sub < 0) sub = 0; //Restrição de não-negatividade
+        Map<BancoDeSangueENUM, Integer> bancoDeSangue = hospital.getBancoDeSangue();
+        bancoDeSangue.put(tipo, sub);
+        hospital.setBancoDeSangue(bancoDeSangue);
+        return hospitalRepository.save(hospital);
+    }
 
-        bancoDeSangueRepository.save(bancoDeSangue);
+    public Hospital reset(long cpf) {
+        Hospital hospital = hospitalRepository.findById(cpf).get();
+        Map<BancoDeSangueENUM, Integer> bancoDeSangue = hospital.getBancoDeSangue();
+        bancoDeSangue.entrySet().stream()
+                .forEach((k) -> k.setValue(0));
+        hospital.setBancoDeSangue(bancoDeSangue);
+        return hospitalRepository.save(hospital);
     }
 }

@@ -19,12 +19,12 @@ public class HospitalController {
         }
 
         @GetMapping("/{id}")
-        public Long show(@PathVariable(value = "id") Long id) {
-            return id;
+        public Hospital show(@PathVariable(value = "id") Long id) {
+            return hospitalService.find(id).get();
         }
 
         @PostMapping
-        public void store(Hospital hospital) {
+        public void store(@RequestBody Hospital hospital) {
             this.hospitalService.create(hospital);
         }
 
