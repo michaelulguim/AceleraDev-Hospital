@@ -17,7 +17,7 @@ public class HistoricoPaciente {
     private Long hospital;
 
     @ManyToOne
-     private Paciente paciente;
+    private Paciente paciente;
 
 
     public LocalDateTime getDataEntradaHospital() {

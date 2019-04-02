@@ -40,7 +40,7 @@ public class ProdutoServiceTest {
         assertEquals(produtos.size(), listaprodutos.size());
     }
     
-        @Test
+    @Test
     void deveCriarUmProduto() {
         Produto produto = Mockito.mock(Produto.class);
         when(this.produtoRepository.save(any(Produto.class))).thenReturn(produto);

@@ -1,33 +1,53 @@
 package gestao.Hospital;
 
 import gestao.BancoDeSangue.BancoDeSangueENUM;
+import gestao.Leito.Leito;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Map;
 
 @Entity
 public class Hospital {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     @Id
     private Long id;
 
+    @NotNull
     private String nome;
-    private String cep;
-    private String logradouro;
-    private String complemento;
-    private String bairro;
-    private String localidade;
-    private String uf;
-    private String numero;
-    private String formatted_address;
 
+    @NotNull
+    private String cep;
+
+    @NotNull
+    private String logradouro;
+
+    @NotNull
+    private String complemento;
+
+    @NotNull
+    private String bairro;
+
+    @NotNull
+    private String localidade;
+
+    @NotNull
+    private String uf;
+
+    @NotNull
+    private String numero;
+
+    @NotNull
+    private String formatted_address;
 
     private Integer n_leitos;
 
     @ElementCollection
-    private Map<BancoDeSangueENUM, Integer>  bancoDeSangue;
+    private Map<BancoDeSangueENUM, Integer> bancoDeSangue;
 
+    @OneToMany
+    private List<Leito> leito;
 
     public Long getId() {
         return id;
@@ -123,5 +143,13 @@ public class Hospital {
 
     public void setBancoDeSangue(Map<BancoDeSangueENUM, Integer> bancoDeSangue) {
         this.bancoDeSangue = bancoDeSangue;
+    }
+
+    public List<Leito> getLeito() {
+        return leito;
+    }
+
+    public void setLeito(List<Leito> leito) {
+        this.leito = leito;
     }
 }

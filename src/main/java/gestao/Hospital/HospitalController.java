@@ -50,7 +50,7 @@ public class HospitalController {
         }
 
         @DeleteMapping("/{id}")
-        public ResponseEntity<String>  delete(@PathVariable(value = "id") Long id) {
+        public ResponseEntity<String> delete(@PathVariable(value = "id") Long id) {
             this.hospitalService.delete(id);
             return ResponseEntity.ok().body("Hospital deletado");
         }
