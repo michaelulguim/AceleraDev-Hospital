@@ -1,4 +1,4 @@
-package gestao.produto;
+package gestao.Produto;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

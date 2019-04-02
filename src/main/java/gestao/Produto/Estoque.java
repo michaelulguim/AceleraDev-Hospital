@@ -1,6 +1,5 @@
-package gestao.produto;
+package gestao.Produto;
 
-import gestao.produto.Produto;
 import java.util.Collections;
 import java.util.List;
 

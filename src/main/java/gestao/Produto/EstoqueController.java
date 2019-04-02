@@ -1,4 +1,4 @@
-package gestao.produto;
+package gestao.Produto;
 
 import java.util.List;
 import java.util.Optional;
