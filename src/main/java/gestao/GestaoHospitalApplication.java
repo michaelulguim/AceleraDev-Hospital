@@ -2,12 +2,19 @@ package gestao;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.util.TimeZone;
+import javax.annotation.PostConstruct;
 
 @SpringBootApplication
 public class GestaoHospitalApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(GestaoHospitalApplication.class, args);
-	}
+    @PostConstruct
+    public void fusoHorario() {
+        TimeZone.setDefault(TimeZone.getTimeZone("America/Sao_Paulo"));
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(GestaoHospitalApplication.class, args);
+    }
 
 }
