@@ -1,8 +1,5 @@
 package gestao.produto;
 
-import gestao.produto.ProdutoService;
-import gestao.produto.Produto;
-import gestao.produto.ProdutoRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

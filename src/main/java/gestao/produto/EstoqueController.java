@@ -1,7 +1,5 @@
 package gestao.produto;
 
-import gestao.produto.Produto;
-import gestao.produto.ProdutoService;
 import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
@@ -57,7 +55,6 @@ public class EstoqueController {
             return ResponseEntity.ok().body("Atualizado");
         }
         return ResponseEntity.badRequest().build();
-
     }
 
     @DeleteMapping("/{id}")
