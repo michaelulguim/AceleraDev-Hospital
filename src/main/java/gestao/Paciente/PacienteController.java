@@ -28,7 +28,7 @@ public class PacienteController {
     }
 
     @GetMapping("/{cpf}") //Retorna um paciente pelo CPF
-    public Paciente paciente(@PathVariable(value = "cpf") Long cpf) {
+    public Paciente paciente(@PathVariable(value = "cpf") String cpf) {
         return pacienteService.buscaPacientePorCpf(cpf);
     }
 
@@ -38,7 +38,7 @@ public class PacienteController {
     }
 
     @GetMapping("/{cpf}/historico") //Retorna o histórico de um paciente pelo CPF
-    public List<HistoricoPaciente> historicoPaciente(@PathVariable(value = "cpf") Long cpf) {
+    public List<HistoricoPaciente> historicoPaciente(@PathVariable(value = "cpf") String cpf) {
         return pacienteService.historicoPaciente(cpf);
     }
 

@@ -4,7 +4,9 @@ import gestao.Hospital.Hospital;
 import gestao.Hospital.HospitalRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -46,4 +48,70 @@ public class BancoDeSangueService {
         hospital.setBancoDeSangue(bancoDeSangue);
         return hospitalRepository.save(hospital);
     }
+
+    public List<BancoDeSangueENUM> compatibilidadeSanguinea(BancoDeSangueENUM tipo) {
+
+       List<BancoDeSangueENUM> sanguesCompativeis = new ArrayList<BancoDeSangueENUM>();
+
+       if(tipo.equals(BancoDeSangueENUM.A_P)) {
+            sanguesCompativeis.add(BancoDeSangueENUM.A_P);
+            sanguesCompativeis.add(BancoDeSangueENUM.A_N);
+            sanguesCompativeis.add(BancoDeSangueENUM.O_P);
+            sanguesCompativeis.add(BancoDeSangueENUM.O_N);
+            return sanguesCompativeis;
+        }
+
+        if(tipo.equals(BancoDeSangueENUM.A_N)) {
+            sanguesCompativeis.add(BancoDeSangueENUM.A_N);
+            sanguesCompativeis.add(BancoDeSangueENUM.O_N);
+            return sanguesCompativeis;
+        }
+
+        if(tipo.equals(BancoDeSangueENUM.B_P)) {
+            sanguesCompativeis.add(BancoDeSangueENUM.B_P);
+            sanguesCompativeis.add(BancoDeSangueENUM.B_N);
+            sanguesCompativeis.add(BancoDeSangueENUM.O_P);
+            sanguesCompativeis.add(BancoDeSangueENUM.O_N);
+            return sanguesCompativeis;
+        }
+
+        if(tipo.equals(BancoDeSangueENUM.B_N)) {
+            sanguesCompativeis.add(BancoDeSangueENUM.B_N);
+            sanguesCompativeis.add(BancoDeSangueENUM.O_N);
+            return sanguesCompativeis;
+        }
+
+        if(tipo.equals(BancoDeSangueENUM.AB_P)) {
+            sanguesCompativeis.add(BancoDeSangueENUM.A_P);
+            sanguesCompativeis.add(BancoDeSangueENUM.A_N);
+            sanguesCompativeis.add(BancoDeSangueENUM.B_P);
+            sanguesCompativeis.add(BancoDeSangueENUM.B_N);
+            sanguesCompativeis.add(BancoDeSangueENUM.AB_P);
+            sanguesCompativeis.add(BancoDeSangueENUM.AB_N);
+            sanguesCompativeis.add(BancoDeSangueENUM.O_P);
+            sanguesCompativeis.add(BancoDeSangueENUM.O_N);
+            return sanguesCompativeis;
+        }
+
+        if(tipo.equals(BancoDeSangueENUM.AB_N)) {
+            sanguesCompativeis.add(BancoDeSangueENUM.A_N);
+            sanguesCompativeis.add(BancoDeSangueENUM.B_N);
+            sanguesCompativeis.add(BancoDeSangueENUM.AB_N);
+            sanguesCompativeis.add(BancoDeSangueENUM.O_N);
+            return sanguesCompativeis;
+        }
+
+        if(tipo.equals(BancoDeSangueENUM.O_P)) {
+            sanguesCompativeis.add(BancoDeSangueENUM.O_P);
+            sanguesCompativeis.add(BancoDeSangueENUM.O_N);
+            return sanguesCompativeis;
+        }
+
+        if(tipo.equals(BancoDeSangueENUM.O_N)) {
+            sanguesCompativeis.add(BancoDeSangueENUM.O_N);
+            return sanguesCompativeis;
+        }
+        return null;
+    }
+
 }

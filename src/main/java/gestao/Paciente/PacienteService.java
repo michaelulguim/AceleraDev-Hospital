@@ -6,6 +6,7 @@ import gestao.HistoricoPaciente.HistoricoPaciente;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 @Service
 public class PacienteService {
@@ -21,6 +22,7 @@ public class PacienteService {
 
 
     public Paciente salvaPaciente(Paciente paciente) {
+        paciente.setCpf(paciente.getCpf().replaceAll(Pattern.quote ("."), "").replaceAll(("-"), ""));
         pacienteRepository.save(paciente);
         return paciente;
     }
@@ -30,11 +32,11 @@ public class PacienteService {
         return listaPacientes;
     }
 
-    public Paciente buscaPacientePorCpf(long cpf) {
+    public Paciente buscaPacientePorCpf(String cpf) {
         return pacienteRepository.findByCpf(cpf);
     }
 
-    public List<HistoricoPaciente> historicoPaciente(long cpf) {
+    public List<HistoricoPaciente> historicoPaciente(String cpf) {
         Paciente paciente = pacienteRepository.findByCpf(cpf);
         return pacienteRepository.findByCpf(cpf).pegaHistoricoPaciente();
     }

@@ -27,6 +27,8 @@ public class HospitalService {
 
     public Hospital create(Hospital hospital) {
         Map<BancoDeSangueENUM, Integer> bancoDeSangue = new HashMap<BancoDeSangueENUM, Integer>();
+
+        //Inicializando Banco de Sangue ao criar um Hospital
         bancoDeSangue.put(BancoDeSangueENUM.A_P, 0);
         bancoDeSangue.put(BancoDeSangueENUM.A_N, 0);
         bancoDeSangue.put(BancoDeSangueENUM.B_P, 0);
@@ -37,9 +39,12 @@ public class HospitalService {
         bancoDeSangue.put(BancoDeSangueENUM.O_N, 0);
         hospital.setBancoDeSangue(bancoDeSangue);
 
+
+
         RestTemplate restTemplate = new RestTemplate();
         String url = "https://viacep.com.br/ws/"+ hospital.getCep()+"/json";
         hospital = restTemplate.getForObject(url, Hospital.class);
+
         return this.hospitalRepository.save(hospital);
     }
 

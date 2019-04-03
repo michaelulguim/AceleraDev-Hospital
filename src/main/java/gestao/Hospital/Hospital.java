@@ -2,6 +2,7 @@ package gestao.Hospital;
 
 import gestao.BancoDeSangue.BancoDeSangueENUM;
 import gestao.Leito.Leito;
+import gestao.Leito.TipoLeitoENUM;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -41,7 +42,8 @@ public class Hospital {
     @NotNull
     private String formatted_address;
 
-    private Integer n_leitos;
+   // @ElementCollection
+   // private Map<TipoLeitoENUM, List<Leito>> leitosHospital;
 
     @ElementCollection
     private Map<BancoDeSangueENUM, Integer> bancoDeSangue;
@@ -129,13 +131,7 @@ public class Hospital {
         this.formatted_address = formatted_address;
     }
 
-    public Integer getN_leitos() {
-        return n_leitos;
-    }
 
-    public void setN_leitos(Integer n_leitos) {
-        this.n_leitos = n_leitos;
-    }
 
     public Map<BancoDeSangueENUM, Integer> getBancoDeSangue() {
         return bancoDeSangue;

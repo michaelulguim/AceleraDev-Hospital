@@ -2,8 +2,12 @@ package gestao.Paciente;
 
 
 import gestao.HistoricoPaciente.HistoricoPaciente;
+import gestao.Hospital.Hospital;
+import org.hibernate.validator.constraints.UniqueElements;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,25 +19,33 @@ public class Paciente {
 
 
     @Id
-    private Long cpf;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @CPF
+    //@UniqueElements
+    private String cpf;
+    @NotNull
     private String nome;
+    @NotNull
     private LocalDate dataNascimento;
+    @NotNull
     private SexoPacienteENUM sexo;
     private LocalDateTime ultimoCheckin;
     private boolean emAtendimento;
 
-    private Long hospital;
+    @ManyToOne
+    private Hospital hospital;
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<HistoricoPaciente> historicoPaciente;
 
 
 
-    public Long getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(Long cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
@@ -61,11 +73,11 @@ public class Paciente {
         this.sexo = sexo;
     }
 
-    public Long getHospital() {
+    public Hospital getHospital() {
         return hospital;
     }
 
-    public void setHospital(Long hospital) {
+    public void setHospital(Hospital hospital) {
         this.hospital = hospital;
     }
 

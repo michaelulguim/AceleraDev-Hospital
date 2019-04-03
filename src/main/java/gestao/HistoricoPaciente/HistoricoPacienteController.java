@@ -16,17 +16,17 @@ public class HistoricoPacienteController {
     HistoricoPacienteService historicoPacienteService;
 
     @PostMapping("/{cpf}/checkin") //Realiza checkin
-    public void checkin(@RequestBody HistoricoPaciente historico, @PathVariable(value = "cpf") Long cpf) throws PacienteSemCheckoutException {
+    public void checkin(@RequestBody HistoricoPaciente historico, @PathVariable(value = "cpf") String cpf) throws PacienteSemCheckoutException {
         historicoPacienteService.checkin(cpf, historico);
     }
 
     @PutMapping("/{cpf}/internado") //Define leito de internação para o atendimento atual
-    public void internado(@RequestBody HistoricoPaciente historico, @PathVariable(value = "cpf") Long cpf) {
+    public void internado(@RequestBody HistoricoPaciente historico, @PathVariable(value = "cpf") String cpf) {
         historicoPacienteService.internado(cpf, historico);
     }
 
     @PutMapping("/{cpf}/checkout") // Realiza checkout
-    public void checkout(@RequestBody HistoricoPaciente historico, @PathVariable(value = "cpf") Long cpf) throws PacienteSemCheckoutException {
+    public void checkout(@RequestBody HistoricoPaciente historico, @PathVariable(value = "cpf") String cpf) throws PacienteSemCheckoutException {
         historicoPacienteService.checkout(cpf, historico);
     }
 

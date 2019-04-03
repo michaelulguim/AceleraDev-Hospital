@@ -23,7 +23,7 @@ public class HistoricoPacienteService {
         this.pacienteRepository = pacienteRepository;
     }
 
-    public void checkin(long cpf, HistoricoPaciente historico) throws PacienteSemCheckoutException {
+    public void checkin(String cpf, HistoricoPaciente historico) throws PacienteSemCheckoutException {
         Paciente paciente = pacienteRepository.findByCpf(cpf);
         if (paciente.isEmAtendimento()) throw new PacienteSemCheckoutException("Paciente já está em atendimento");
         paciente.setEmAtendimento(true);
@@ -39,14 +39,14 @@ public class HistoricoPacienteService {
 
     }
 
-    public void internado(long cpf, HistoricoPaciente historico) {
+    public void internado(String cpf, HistoricoPaciente historico) {
         Paciente paciente = pacienteRepository.findByCpf(cpf);
         HistoricoPaciente historicoPaciente = historicoPacienteRepository.findByDataEntradaHospital(paciente.getUltimoCheckin());
         historicoPaciente.setLeito(historico.getLeito());
         historicoPacienteRepository.saveAndFlush(historicoPaciente);
     }
 
-    public void checkout(long cpf, HistoricoPaciente historico) throws PacienteSemCheckoutException {
+    public void checkout(String cpf, HistoricoPaciente historico) throws PacienteSemCheckoutException {
         Paciente paciente = pacienteRepository.findByCpf(cpf);
         if (!paciente.isEmAtendimento()) throw new PacienteSemCheckoutException("Paciente não deu entrada no hospital");
         paciente.setEmAtendimento(false);
