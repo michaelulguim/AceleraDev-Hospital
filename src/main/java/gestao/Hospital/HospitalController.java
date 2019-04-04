@@ -1,5 +1,7 @@
 package gestao.Hospital;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -9,19 +11,23 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/hospitais")
+@RequestMapping("/api/v1/hospital")
+@Api(value="API REST Hospitais")
+@CrossOrigin(origins = "*")
 public class HospitalController {
         @Autowired
         HospitalService hospitalService;
 
 
         @GetMapping
+        @ApiOperation(value="Retorna uma lista de Hospitais")
         public ResponseEntity<List<Hospital>> index() {
             List<Hospital> hospitais = hospitalService.findAll();
             return ResponseEntity.ok().body(hospitais);
         }
 
         @GetMapping("/{id}")
+        @ApiOperation(value="Retorna um Hospital")
         public ResponseEntity<Hospital> show(@PathVariable(value = "id") Long id) {
             Optional<Hospital> hospital = this.hospitalService.find(id);
             if (! hospital.isPresent()) {
@@ -31,6 +37,7 @@ public class HospitalController {
         }
 
         @PostMapping
+        @ApiOperation(value="Salva um Hospitais")
         public ResponseEntity<String> store(@RequestBody Hospital hospital, BindingResult resultado) {
              if (resultado.hasErrors()) {
                  return ResponseEntity.badRequest().body(null);
@@ -42,6 +49,7 @@ public class HospitalController {
 
 
         @PutMapping("/{id}")
+        @ApiOperation(value="Atualiza Hospitais")
         public ResponseEntity<String> update(@PathVariable(value = "id") Long id, Hospital hospital) {
             if (this.hospitalService.update(id, hospital)) {
                 return ResponseEntity.ok().body("Hospital atualizado");
@@ -50,6 +58,7 @@ public class HospitalController {
         }
 
         @DeleteMapping("/{id}")
+        @ApiOperation(value="Remove Hospitais")
         public ResponseEntity<String> delete(@PathVariable(value = "id") Long id) {
             this.hospitalService.delete(id);
             return ResponseEntity.ok().body("Hospital deletado");
