@@ -48,6 +48,7 @@ public class HistoricoPacienteService {
     }
 
     public boolean internado(String cpf, HistoricoPaciente historico) {
+        cpf = cpf.replaceAll(Pattern.quote("."), "").replaceAll(("-"), "");
         try {
             Paciente paciente = pacienteRepository.findByCpf(cpf);
             HistoricoPaciente historicoPaciente = historicoPacienteRepository.findByDataEntradaHospital(paciente.getUltimoCheckin());
@@ -60,6 +61,7 @@ public class HistoricoPacienteService {
     }
 
     public boolean checkout(String cpf, HistoricoPaciente historico) throws PacienteSemCheckoutException {
+        cpf = cpf.replaceAll(Pattern.quote("."), "").replaceAll(("-"), "");
         try {
             Paciente paciente = pacienteRepository.findByCpf(cpf);
             if (!paciente.isEmAtendimento())
