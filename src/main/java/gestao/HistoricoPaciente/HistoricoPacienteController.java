@@ -3,6 +3,8 @@ package gestao.HistoricoPaciente;
 //import gestao.Paciente.Paciente.HistoricoPaciente;
 import gestao.Paciente.PacienteSemCheckoutException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,18 +18,27 @@ public class HistoricoPacienteController {
     HistoricoPacienteService historicoPacienteService;
 
     @PostMapping("/{cpf}/checkin") //Realiza checkin
-    public void checkin(@RequestBody HistoricoPaciente historico, @PathVariable(value = "cpf") String cpf) throws PacienteSemCheckoutException {
-        historicoPacienteService.checkin(cpf, historico);
+    public ResponseEntity<String> checkin(@RequestBody HistoricoPaciente historico, @PathVariable(value = "cpf") String cpf) throws PacienteSemCheckoutException {
+        if(historicoPacienteService.checkin(cpf, historico)) {
+            return new ResponseEntity<String>("Checkin realizado", HttpStatus.OK);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @PutMapping("/{cpf}/internado") //Define leito de internação para o atendimento atual
-    public void internado(@RequestBody HistoricoPaciente historico, @PathVariable(value = "cpf") String cpf) {
-        historicoPacienteService.internado(cpf, historico);
+    public ResponseEntity<String> internado(@RequestBody HistoricoPaciente historico, @PathVariable(value = "cpf") String cpf) {
+        if(historicoPacienteService.internado(cpf, historico)) {
+            return new ResponseEntity<String>("Internação realizada", HttpStatus.OK);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @PutMapping("/{cpf}/checkout") // Realiza checkout
-    public void checkout(@RequestBody HistoricoPaciente historico, @PathVariable(value = "cpf") String cpf) throws PacienteSemCheckoutException {
-        historicoPacienteService.checkout(cpf, historico);
+    public ResponseEntity<String> checkout(@RequestBody HistoricoPaciente historico, @PathVariable(value = "cpf") String cpf) throws PacienteSemCheckoutException {
+        if(historicoPacienteService.checkout(cpf, historico)) {
+            return new ResponseEntity<String>("Checkout realizad0", HttpStatus.OK);
+        }
+        return ResponseEntity.notFound().build();
     }
 
 

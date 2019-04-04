@@ -1,5 +1,6 @@
 package gestao.HistoricoPaciente;
 
+import gestao.Hospital.Hospital;
 import gestao.Paciente.Paciente;
 
 import javax.persistence.*;
@@ -14,7 +15,9 @@ public class HistoricoPaciente {
     private LocalDateTime dataEntradaHospital;
     private LocalDateTime dataSaidaHospital;
     private String leito;
-    private Long hospital;
+
+    @OneToOne
+    private Hospital hospital;
 
     @ManyToOne
     private Paciente paciente;
@@ -44,15 +47,15 @@ public class HistoricoPaciente {
         this.leito = leito;
     }
 
-    public Long getHospital() {
+    public Hospital getHospital() {
         return hospital;
     }
 
-    public void setHospital(Long hospital) {
+    public void setHospital(Hospital hospital) {
         this.hospital = hospital;
     }
 
-   public Paciente getPaciente() {
+    public Paciente getPaciente() {
         return paciente;
     }
 

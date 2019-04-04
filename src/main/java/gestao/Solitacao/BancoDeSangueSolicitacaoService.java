@@ -6,10 +6,13 @@ import gestao.BancoDeSangue.BancoDeSangueService;
 import gestao.Hospital.Hospital;
 import gestao.Hospital.HospitalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 
+
+@Service
 public class BancoDeSangueSolicitacaoService {
 
     @Autowired
@@ -26,7 +29,7 @@ public class BancoDeSangueSolicitacaoService {
         Hospital hospitalSolicitante = hospitalRepository.findById(id).get();
         List<BancoDeSangueENUM> sanguesCompativeis = bancoDeSangueService.compatibilidadeSanguinea(tipo);
 
-        Hospital hospitalMaisProximoDoador = funcaoParaRetornarHospitalMaisProximo(hospitalSolicitante, sanguesCompativeis);
+        Hospital hospitalMaisProximoDoador = null;// funcaoParaRetornarHospitalMaisProximo(hospitalSolicitante, sanguesCompativeis);
 
         for (BancoDeSangueENUM bs : sanguesCompativeis) {
             if ((hospitalMaisProximoDoador.getBancoDeSangue().get(bs) - quantidadeSolicitada) >= 4) {

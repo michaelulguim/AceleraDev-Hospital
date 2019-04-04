@@ -40,6 +40,9 @@ public class Paciente {
     private List<HistoricoPaciente> historicoPaciente;
 
 
+    public long getId() {
+        return id;
+    }
 
     public String getCpf() {
         return cpf;

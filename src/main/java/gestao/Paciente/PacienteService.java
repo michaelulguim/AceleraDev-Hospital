@@ -3,9 +3,12 @@ package gestao.Paciente;
 import gestao.HistoricoPaciente.HistoricoPaciente;
 //import gestao.Paciente.Paciente.HistoricoPaciente;
 //import gestao.Paciente.Paciente.Paciente;
+import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 @Service
@@ -14,17 +17,20 @@ public class PacienteService {
     //  @Autowired
     private final PacienteRepository pacienteRepository;
     //  @Autowired
-   // private final HistoricoPacienteRepository historicoPacienteRepository;
+    // private final HistoricoPacienteRepository historicoPacienteRepository;
 
     public PacienteService(PacienteRepository pacienteRepository) {
         this.pacienteRepository = pacienteRepository;
     }
 
 
-    public Paciente salvaPaciente(Paciente paciente) {
-        paciente.setCpf(paciente.getCpf().replaceAll(Pattern.quote ("."), "").replaceAll(("-"), ""));
+    public boolean salvaPaciente(Paciente paciente, BindingResult resultado) {
+        if (resultado.hasErrors()) {
+            return false;
+        }
+        paciente.setCpf(paciente.getCpf().replaceAll(Pattern.quote("."), "").replaceAll(("-"), ""));
         pacienteRepository.save(paciente);
-        return paciente;
+        return true;
     }
 
     public List<Paciente> buscaTodosPaciente() {
@@ -32,13 +38,25 @@ public class PacienteService {
         return listaPacientes;
     }
 
-    public Paciente buscaPacientePorCpf(String cpf) {
-        return pacienteRepository.findByCpf(cpf);
+    public Optional<Paciente> buscaPacientePorCpf(String cpf) {
+        cpf = cpf.replaceAll(Pattern.quote("."), "").replaceAll(("-"), "");
+        Optional<Paciente> optional = null;
+        try {
+            Paciente paciente = pacienteRepository.findByCpf(cpf);
+            optional = pacienteRepository.findById(paciente.getId());    //Optional só funciona para busca pelo ID. Neste caso, a busca é pelo CPF
+            return optional;
+        } catch (Exception ex) {
+            return optional;
+        }
     }
 
     public List<HistoricoPaciente> historicoPaciente(String cpf) {
-        Paciente paciente = pacienteRepository.findByCpf(cpf);
-        return pacienteRepository.findByCpf(cpf).pegaHistoricoPaciente();
+        try {
+            Paciente paciente = pacienteRepository.findByCpf(cpf);
+            return paciente.pegaHistoricoPaciente();
+        } catch (Exception ex) {
+            return null;
+        }
     }
 
 
