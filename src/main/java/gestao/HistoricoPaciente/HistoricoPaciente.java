@@ -4,6 +4,7 @@ import gestao.Hospital.Hospital;
 import gestao.Paciente.Paciente;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 
 
@@ -17,6 +18,7 @@ public class HistoricoPaciente {
     private String leito;
 
     @OneToOne
+    //@NotEmpty
     private Hospital hospital;
 
     @ManyToOne

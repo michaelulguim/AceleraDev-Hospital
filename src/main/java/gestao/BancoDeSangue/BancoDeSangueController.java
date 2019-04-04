@@ -2,27 +2,31 @@ package gestao.BancoDeSangue;
 
 import gestao.Hospital.Hospital;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/hospital/{id}/bancodesangue")
+@RequestMapping("/api/v1/hospitais/{id}/bancodesangue")
 public class BancoDeSangueController {
 
     @Autowired
     BancoDeSangueService bancoDeSangueService;
 
-    @PutMapping("/add")
-    public Hospital add(@RequestBody BancoDeSangue bancoDeSangue, @PathVariable("id") long id) {
-       return bancoDeSangueService.add(id, bancoDeSangue.getTipo(), bancoDeSangue.getQuantidadeEmLitros());
+    @PutMapping("/adicionarSangue")
+    public ResponseEntity<Hospital> add(@RequestBody BancoDeSangue bancoDeSangue, @PathVariable("id") long id) {
+        if(bancoDeSangueService.adicionarSangue(id, bancoDeSangue.getTipo(), bancoDeSangue.getQuantidadeEmLitros())) {
+            return ResponseEntity.ok().build();
+        }
+       return ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/remove")
-    public Hospital remove(@RequestBody BancoDeSangue bancoDeSangue, @PathVariable("id") long id) {
-        return bancoDeSangueService.remove(id, bancoDeSangue.getTipo(), bancoDeSangue.getQuantidadeEmLitros());
+    @PutMapping("/removerSangue")
+    public ResponseEntity<Hospital> remove(@RequestBody BancoDeSangue bancoDeSangue, @PathVariable("id") long id) {
+        if(bancoDeSangueService.removerSangue(id, bancoDeSangue.getTipo(), bancoDeSangue.getQuantidadeEmLitros())) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/reset")
-    public Hospital reset(@PathVariable("id") long id) {
-        return bancoDeSangueService.reset(id);
-    }
 }

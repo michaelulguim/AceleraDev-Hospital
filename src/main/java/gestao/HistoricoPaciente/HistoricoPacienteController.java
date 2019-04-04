@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/v1/paciente")
+@RequestMapping(value = "/api/v1/pacientes")
 @CrossOrigin(origins = "*")
 public class HistoricoPacienteController {
 
@@ -27,7 +27,7 @@ public class HistoricoPacienteController {
         return ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/{cpf}/internado") //Define leito de internação para o atendimento atual
+    @PutMapping("/{cpf}/internar") //Define leito de internação para o atendimento atual
     public ResponseEntity<String> internado(@RequestBody HistoricoPaciente historico, @PathVariable(value = "cpf") String cpf) {
         if(historicoPacienteService.internado(cpf, historico)) {
             return new ResponseEntity<String>(gson.toJson("Internação realizada"), HttpStatus.OK);

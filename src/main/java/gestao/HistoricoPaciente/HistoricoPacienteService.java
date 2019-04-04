@@ -65,7 +65,7 @@ public class HistoricoPacienteService {
         try {
             Paciente paciente = pacienteRepository.findByCpf(cpf);
             if (!paciente.isEmAtendimento())
-                throw new PacienteSemCheckoutException("Paciente não deu entrada no hospital");
+                 throw new PacienteSemCheckoutException("Paciente não deu entrada no hospital");
             paciente.setEmAtendimento(false);
             historico.setPaciente(paciente);
             HistoricoPaciente historicoPaciente = historicoPacienteRepository.findByDataEntradaHospital(paciente.getUltimoCheckin());

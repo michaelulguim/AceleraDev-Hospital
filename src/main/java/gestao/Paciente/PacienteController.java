@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/api/v1/paciente")
+@RequestMapping(value = "/api/v1/pacientes")
 @CrossOrigin(origins = "*")
 public class PacienteController {
 
@@ -39,10 +39,10 @@ public class PacienteController {
     @GetMapping("/{cpf}") //Retorna um paciente pelo CPF
     public ResponseEntity<Paciente> paciente(@PathVariable(value = "cpf") String cpf) {
         Optional<Paciente> paciente = pacienteService.buscaPacientePorCpf(cpf);
-        if(paciente.isPresent()) {
+        if(paciente != null && paciente.isPresent()) {
             return new ResponseEntity<Paciente>(paciente.get(), HttpStatus.FOUND);
         } else {
-           return  ResponseEntity.notFound().build();
+           return  ResponseEntity.notFound().build(); // Nao vai chegar aqui pq lança exception no service.
         }
     }
 

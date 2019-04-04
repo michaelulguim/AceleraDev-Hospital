@@ -43,10 +43,10 @@ public class PacienteService {
         Optional<Paciente> optional = null;
         try {
             Paciente paciente = pacienteRepository.findByCpf(cpf);
-            optional = pacienteRepository.findById(paciente.getId());    //Optional só funciona para busca pelo ID. Neste caso, a busca é pelo CPF
+             optional = pacienteRepository.findById(paciente.getId());    //Optional só funciona para busca pelo ID. Neste caso, a busca é pelo CPF
             return optional;
         } catch (Exception ex) {
-            return optional;
+            throw  new PacienteNaoEncontradoException("Paciente não encontrado"); //Tentar colocar um retorno que não gere o trace. Apenas a mensagem
         }
     }
 
