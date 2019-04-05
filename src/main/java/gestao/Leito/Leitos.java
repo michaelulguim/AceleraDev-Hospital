@@ -1,10 +1,12 @@
 package gestao.Leito;
 
+import gestao.Hospital.Hospital;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Leito {
+public class Leitos {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -15,6 +17,10 @@ public class Leito {
 
     @NotNull
     private Integer quantidade;
+
+    @ManyToOne
+    @JoinColumn(name = "hospital_id")
+    private Hospital hospital;
 
     public Long getId() {
         return id;

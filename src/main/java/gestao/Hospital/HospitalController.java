@@ -2,13 +2,17 @@ package gestao.Hospital;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+
+import static com.fasterxml.jackson.databind.node.JsonNodeType.POJO;
 
 @RestController
 @RequestMapping("/api/v1/hospital")
@@ -38,12 +42,12 @@ public class HospitalController {
 
         @PostMapping
         @ApiOperation(value="Salva um Hospitais")
-        public ResponseEntity<String> store(@RequestBody Hospital hospital, BindingResult resultado) {
+        public ResponseEntity<Hospital> store(@RequestBody Hospital hospital, BindingResult resultado) {
              if (resultado.hasErrors()) {
                  return ResponseEntity.badRequest().body(null);
              }
              this.hospitalService.create(hospital);
-             return ResponseEntity.ok().body("Hospital atualizado");
+             return ResponseEntity.ok().body(hospital);
 
         }
 

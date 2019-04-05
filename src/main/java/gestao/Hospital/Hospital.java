@@ -1,8 +1,9 @@
 package gestao.Hospital;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import gestao.BancoDeSangue.BancoDeSangueENUM;
-import gestao.Leito.Leito;
-import gestao.Leito.TipoLeitoENUM;
+
+import gestao.Leito.Leitos;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -18,38 +19,43 @@ public class Hospital {
     @NotNull
     private String nome;
 
+
     @NotNull
     private String cep;
+
 
     @NotNull
     private String logradouro;
 
-    @NotNull
+
     private String complemento;
+
 
     @NotNull
     private String bairro;
 
+
     @NotNull
     private String localidade;
+
 
     @NotNull
     private String uf;
 
+
     @NotNull
     private String numero;
 
-    @NotNull
-    private String formatted_address;
 
-   // @ElementCollection
-   // private Map<TipoLeitoENUM, List<Leito>> leitosHospital;
+    private String formatted_address;
 
     @ElementCollection
     private Map<BancoDeSangueENUM, Integer> bancoDeSangue;
 
-    @OneToMany
-    private List<Leito> leito;
+
+    @OneToMany(targetEntity=Leitos.class, cascade=CascadeType.ALL, mappedBy = "hospital")
+    private List<Leitos> leitos;
+
 
     public Long getId() {
         return id;
@@ -132,7 +138,6 @@ public class Hospital {
     }
 
 
-
     public Map<BancoDeSangueENUM, Integer> getBancoDeSangue() {
         return bancoDeSangue;
     }
@@ -140,12 +145,11 @@ public class Hospital {
     public void setBancoDeSangue(Map<BancoDeSangueENUM, Integer> bancoDeSangue) {
         this.bancoDeSangue = bancoDeSangue;
     }
-
-    public List<Leito> getLeito() {
-        return leito;
+    public List<Leitos> getLeitos() {
+        return leitos;
     }
 
-    public void setLeito(List<Leito> leito) {
-        this.leito = leito;
+    public void setLeitos(List<Leitos> leitos) {
+        this.leitos = leitos;
     }
 }

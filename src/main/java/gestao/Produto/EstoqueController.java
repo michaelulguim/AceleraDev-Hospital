@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,7 +41,7 @@ public class EstoqueController {
         return ResponseEntity.notFound().build();
     }
 
-    @PostMapping
+    @PostMapping(MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<String> add(@RequestBody @Valid Produto produto, BindingResult resultado) {
         if (produtoService.adicionar(produto, resultado)) {
             return ResponseEntity.ok().body("Adicionado");
