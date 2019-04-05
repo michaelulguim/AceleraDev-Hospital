@@ -41,7 +41,7 @@ public class HospitalController {
         }
 
         @PostMapping
-        @ApiOperation(value="Salva um Hospitais")
+        @ApiOperation(value="Salva um hospital.")
         public ResponseEntity<Hospital> store(@RequestBody Hospital hospital, BindingResult resultado) {
              if (resultado.hasErrors()) {
                  return ResponseEntity.badRequest().body(null);
@@ -53,7 +53,7 @@ public class HospitalController {
 
 
         @PutMapping("/{id}")
-        @ApiOperation(value="Atualiza Hospitais")
+        @ApiOperation(value="Atualiza um hospital.")
         public ResponseEntity<String> update(@PathVariable(value = "id") Long id, Hospital hospital) {
             if (this.hospitalService.update(id, hospital)) {
                 return ResponseEntity.ok().body("Hospital atualizado");
@@ -62,7 +62,7 @@ public class HospitalController {
         }
 
         @DeleteMapping("/{id}")
-        @ApiOperation(value="Remove Hospitais")
+        @ApiOperation(value="Remove um hospita.")
         public ResponseEntity<String> delete(@PathVariable(value = "id") Long id) {
             this.hospitalService.delete(id);
             return ResponseEntity.ok().body("Hospital deletado");

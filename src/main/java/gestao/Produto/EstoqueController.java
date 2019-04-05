@@ -1,5 +1,8 @@
 package gestao.Produto;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
@@ -24,6 +27,7 @@ public class EstoqueController {
     ProdutoService produtoService;
 
     @GetMapping
+    @ApiOperation(value="Retorna a lista dos produtos do estoque.")
     public ResponseEntity<List<Produto>> findAll() {
         List<Produto> produtos = produtoService.getProdutos();
         if (produtos.isEmpty()) {
@@ -33,6 +37,7 @@ public class EstoqueController {
     }
 
     @GetMapping("/{id}")
+    @ApiOperation(value="Retorna um produto do estoque.")
     public ResponseEntity<Produto> find(@PathVariable(value = "id") Long id) {
         Optional<Produto> produto = produtoService.find(id);
         if (produto.isPresent()) {
@@ -42,6 +47,7 @@ public class EstoqueController {
     }
 
     @PostMapping(MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value="Salva um produto do estoque.")
     public ResponseEntity<String> add(@RequestBody @Valid Produto produto, BindingResult resultado) {
         if (produtoService.adicionar(produto, resultado)) {
             return ResponseEntity.ok().body("Adicionado");
@@ -51,6 +57,7 @@ public class EstoqueController {
     }
 
     @PutMapping("/{id}")
+    @ApiOperation(value="Atualiza um produto do estoque.")
     public ResponseEntity<String> atualizar(@PathVariable(value = "id") Long id, @RequestBody @Valid Produto produto, BindingResult resultado) {
         if (produtoService.update(id, produto, resultado)) {
             return ResponseEntity.ok().body("Atualizado");
@@ -59,6 +66,7 @@ public class EstoqueController {
     }
 
     @DeleteMapping("/{id}")
+    @ApiOperation(value="Remove um produto do estoque.")
     public ResponseEntity<String> delete(@PathVariable(value = "id") Long id) {
         if (produtoService.delete(id)) {
             return ResponseEntity.ok().body("Deletado");

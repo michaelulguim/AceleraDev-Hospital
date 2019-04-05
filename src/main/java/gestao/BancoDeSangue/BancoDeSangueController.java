@@ -1,5 +1,8 @@
 package gestao.BancoDeSangue;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 import gestao.Hospital.Hospital;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +17,7 @@ public class BancoDeSangueController {
     BancoDeSangueService bancoDeSangueService;
 
     @PutMapping("/adicionarSangue")
+    @ApiOperation(value="Adicionar sangue ao hospital.")
     public ResponseEntity<Hospital> add(@RequestBody BancoDeSangue bancoDeSangue, @PathVariable("id") long id) {
         if(bancoDeSangueService.adicionarSangue(id, bancoDeSangue.getTipo(), bancoDeSangue.getQuantidadeEmLitros())) {
             return ResponseEntity.ok().build();
@@ -22,6 +26,7 @@ public class BancoDeSangueController {
     }
 
     @PutMapping("/removerSangue")
+    @ApiOperation(value="Remove Sangue do hospital.")
     public ResponseEntity<Hospital> remove(@RequestBody BancoDeSangue bancoDeSangue, @PathVariable("id") long id) {
         if(bancoDeSangueService.removerSangue(id, bancoDeSangue.getTipo(), bancoDeSangue.getQuantidadeEmLitros())) {
             return ResponseEntity.ok().build();

@@ -1,5 +1,7 @@
 package gestao.Paciente;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 import gestao.HistoricoPaciente.HistoricoPaciente;
 //import gestao.Paciente.Paciente.HistoricoPaciente;
@@ -22,7 +24,8 @@ public class PacienteController {
     @Autowired
     PacienteService pacienteService;
 
-    @PostMapping//Salva um paciente
+    @PostMapping
+    @ApiOperation(value="Salva um paciente.")
     public ResponseEntity<Paciente> salvaPaciente(@RequestBody @Valid Paciente paciente, BindingResult resultado) {
         if (pacienteService.salvaPaciente(paciente, resultado)) {
             return new ResponseEntity<Paciente>(paciente, HttpStatus.CREATED);
@@ -31,12 +34,14 @@ public class PacienteController {
         }
     }
 
-    @GetMapping //Retorna Lista de todos os pacientes
+    @GetMapping 
+    @ApiOperation(value="Retorna a lista com todos os pacientes.")
     public ResponseEntity<List<Paciente>> listaPacientes() {
         return new ResponseEntity<List<Paciente>>(pacienteService.buscaTodosPaciente(), HttpStatus.FOUND);
     }
 
-    @GetMapping("/{cpf}") //Retorna um paciente pelo CPF
+    @GetMapping("/{cpf}")
+    @ApiOperation(value="Retorna o paciente através CPF.")
     public ResponseEntity<Paciente> paciente(@PathVariable(value = "cpf") String cpf) {
         Optional<Paciente> paciente = pacienteService.buscaPacientePorCpf(cpf);
         if(paciente != null && paciente.isPresent()) {
@@ -47,6 +52,7 @@ public class PacienteController {
     }
 
     @PutMapping //Atualiza um paciente passado por parâmetro
+    @ApiOperation(value="Atualiza um paciente.")
     public ResponseEntity<Paciente> atualizaPaciente(@RequestBody @Valid Paciente paciente, BindingResult resultado) {
         if (pacienteService.salvaPaciente(paciente, resultado)) {
             return new ResponseEntity<Paciente>(paciente, HttpStatus.OK);
@@ -56,6 +62,7 @@ public class PacienteController {
     }
 
     @GetMapping("/{cpf}/historico") //Retorna o histórico de um paciente pelo CPF
+    @ApiOperation(value="Retorna o histórico do paciente.")
     public ResponseEntity<List<HistoricoPaciente>> historicoPaciente(@PathVariable(value = "cpf") String cpf) {
         List<HistoricoPaciente> historicoPacientes = pacienteService.historicoPaciente(cpf);
         if (historicoPacientes != null) {
