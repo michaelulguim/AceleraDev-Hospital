@@ -1,6 +1,5 @@
 package gestao.Hospital;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import gestao.BancoDeSangue.BancoDeSangueENUM;
 
 import gestao.Leito.Leitos;
@@ -48,6 +47,10 @@ public class Hospital {
 
 
     private String formatted_address;
+
+    private Long latitude;
+
+    private Long longitude;
 
     @ElementCollection
     private Map<BancoDeSangueENUM, Integer> bancoDeSangue;
@@ -123,6 +126,22 @@ public class Hospital {
 
     public String getNumero() {
         return numero;
+    }
+
+    public Long getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Long latitude) {
+        this.latitude = latitude;
+    }
+
+    public Long getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Long longitude) {
+        this.longitude = longitude;
     }
 
     public void setNumero(String numero) {

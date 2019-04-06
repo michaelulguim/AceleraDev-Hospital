@@ -13,7 +13,7 @@ public class Leitos {
     private Long id;
 
     @NotNull
-    private TipoLeitoENUM tipo;
+    private String tipo;
 
     @NotNull
     private Integer quantidade;
@@ -30,11 +30,11 @@ public class Leitos {
         this.id = id;
     }
 
-    public TipoLeitoENUM getTipo() {
+    public String getTipo() {
         return tipo;
     }
 
-    public void setTipo(TipoLeitoENUM tipo) {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 

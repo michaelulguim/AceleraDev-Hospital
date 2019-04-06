@@ -1,4 +1,4 @@
-package gestao.utils;
+package gestao.utils.Geolocalizacao;
 
 public class Endereco {
     private String logradouro;

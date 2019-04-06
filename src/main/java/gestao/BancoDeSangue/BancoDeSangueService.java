@@ -52,7 +52,7 @@ public class BancoDeSangueService {
 
     public List<BancoDeSangueENUM> compatibilidadeSanguinea(BancoDeSangueENUM tipo) {
 
-        List<BancoDeSangueENUM> sanguesCompativeis = new ArrayList<BancoDeSangueENUM>();
+        List<BancoDeSangueENUM> sanguesCompativeis = new ArrayList<>();
 
         if (tipo.equals(BancoDeSangueENUM.A_P)) {
             sanguesCompativeis.add(BancoDeSangueENUM.A_P);

@@ -1,5 +1,6 @@
 package gestao.utils;
 
+import gestao.utils.Geolocalizacao.Endereco;
 import org.springframework.web.client.RestTemplate;
 
 public class Cep {

@@ -1,18 +1,18 @@
 package gestao.Hospital;
 
+import gestao.BancoDeSangue.BancoDeSangueENUM;
+import gestao.utils.Geolocalizacao.Ponto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
-
-import static com.fasterxml.jackson.databind.node.JsonNodeType.POJO;
 
 @RestController
 @RequestMapping("/api/v1/hospital")
@@ -51,10 +51,9 @@ public class HospitalController {
 
         }
 
-
         @PutMapping("/{id}")
-        @ApiOperation(value="Atualiza um hospital.")
-        public ResponseEntity<String> update(@PathVariable(value = "id") Long id, Hospital hospital) {
+        @ApiOperation(value="Atualiza Hospital")
+        public ResponseEntity<String> update(@PathVariable(value = "id") Long id, @RequestBody Hospital hospital) {
             if (this.hospitalService.update(id, hospital)) {
                 return ResponseEntity.ok().body("Hospital atualizado");
             }
@@ -67,5 +66,23 @@ public class HospitalController {
             this.hospitalService.delete(id);
             return ResponseEntity.ok().body("Hospital deletado");
         }
+
+//
+        @GetMapping(value = "/encaminhamento")
+        public ResponseEntity<List<Hospital>> findNearHospital(@Valid Ponto geocolocalizacao) {
+            List<Hospital> hospitais = hospitalService.procurarPorHospitaisProximos(geocolocalizacao);
+            return ResponseEntity.ok().body(hospitais);
+        }
+
+//        @GetMapping("/busca/sangue")
+//        public List<Hospital> procurarHospitaisPorBancoDeSangue(@RequestParam("sangue") BancoDeSangueENUM sangue) {
+//            return this.hospitalService.procurarHospitaisPorBancoDeSangue(sangue);
+//        }
+//
+//        @GetMapping("/busca/produto")
+//        public List<Hospital> procurarHospitaisporProduto(@RequestParam("produto") String produtoNome) {
+//            return this.hospitalService.procurarHospitaisporProduto(produtoNome);
+//        }
+
 }
 

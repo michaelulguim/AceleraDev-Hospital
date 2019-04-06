@@ -1,7 +1,9 @@
 package gestao.Hospital;
 
 
+import gestao.BancoDeSangue.BancoDeSangueENUM;
 import gestao.BancoDeSangue.BancoDeSangueFactory;
+import gestao.utils.Geolocalizacao.Ponto;
 import org.springframework.stereotype.Service;
 import java.util.*;
 
@@ -47,4 +49,16 @@ public class HospitalService {
         this.hospitalRepository.deleteById(id);
         return true;
     }
+//
+    public List<Hospital> procurarPorHospitaisProximos(Ponto geocolocalizacao) {
+        return this.hospitalRepository.buscarMaisProximosPorGeo(geocolocalizacao);
+    }
+
+//    public List<Hospital> procurarHospitaisPorBancoDeSangue(BancoDeSangueENUM sangue) {
+//        return hospitalRepository.findByBancoDeSangue(sangue);
+//    }
+//
+//    public List<Hospital> procurarHospitaisporProduto(String produtoNome) {
+//        return hospitalRepository.findByProdutoNome(produtoNome);
+//    }
 }
