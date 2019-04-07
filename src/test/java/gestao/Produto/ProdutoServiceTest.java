@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import static org.junit.Assert.*;
+
+import gestao.models.Produto;
+import gestao.respositories.ProdutoRepository;
+import gestao.services.ProdutoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
