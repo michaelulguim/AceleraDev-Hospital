@@ -49,16 +49,9 @@ public class HospitalService {
         this.hospitalRepository.deleteById(id);
         return true;
     }
-//
+
     public List<Hospital> procurarPorHospitaisProximos(Ponto geocolocalizacao) {
         return this.hospitalRepository.buscarMaisProximosPorGeo(geocolocalizacao);
     }
 
-//    public List<Hospital> procurarHospitaisPorBancoDeSangue(BancoDeSangueENUM sangue) {
-//        return hospitalRepository.findByBancoDeSangue(sangue);
-//    }
-//
-//    public List<Hospital> procurarHospitaisporProduto(String produtoNome) {
-//        return hospitalRepository.findByProdutoNome(produtoNome);
-//    }
 }

@@ -5,7 +5,7 @@ import gestao.BancoDeSangue.BancoDeSangueENUM;
 import gestao.Leito.Leitos;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
 
@@ -15,42 +15,46 @@ public class Hospital {
     @Id
     private Long id;
 
-    @NotNull
+    @NotBlank
     private String nome;
 
 
-    @NotNull
+    @NotBlank
     private String cep;
 
 
-    @NotNull
+    @NotBlank
     private String logradouro;
 
 
     private String complemento;
 
 
-    @NotNull
+    @NotBlank
     private String bairro;
 
 
-    @NotNull
+    @NotBlank
     private String localidade;
 
 
-    @NotNull
+    @NotBlank
     private String uf;
 
-
-    @NotNull
+    @NotBlank
     private String numero;
-
 
     private String formatted_address;
 
-    private Long latitude;
+    @Min(value = -90, message = "A latitude deve estar contida no intervalo [-90, 90]")
+    @Max(value = +90, message = "A latitude deve estar contida no intervalo [-90, 90]")
+    @NotNull(message = "A latitude não deve ser nula e deve ser um número real.")
+    private Double latitude;
 
-    private Long longitude;
+    @Min(value = -180, message = "A longitude deve estar contida no intervalo [-180, 180]")
+    @Max(value = +180, message = "A longitude deve estar contida no intervalo [-180, 180]")
+    @NotNull(message = "A longitude não deve ser nula e deve ser um número real.")
+    private Double longitude;
 
     @ElementCollection
     private Map<BancoDeSangueENUM, Integer> bancoDeSangue;
@@ -128,19 +132,19 @@ public class Hospital {
         return numero;
     }
 
-    public Long getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Long latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public Long getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(Long longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 

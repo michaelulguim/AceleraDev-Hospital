@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/hospital")
+@RequestMapping("/api/v1/hospitais")
 @Api(value="API REST Hospitais")
 @CrossOrigin(origins = "*")
 public class HospitalController {
@@ -67,22 +67,13 @@ public class HospitalController {
             return ResponseEntity.ok().body("Hospital deletado");
         }
 
-//
+
         @GetMapping(value = "/encaminhamento")
         public ResponseEntity<List<Hospital>> findNearHospital(@Valid Ponto geocolocalizacao) {
             List<Hospital> hospitais = hospitalService.procurarPorHospitaisProximos(geocolocalizacao);
             return ResponseEntity.ok().body(hospitais);
         }
 
-//        @GetMapping("/busca/sangue")
-//        public List<Hospital> procurarHospitaisPorBancoDeSangue(@RequestParam("sangue") BancoDeSangueENUM sangue) {
-//            return this.hospitalService.procurarHospitaisPorBancoDeSangue(sangue);
-//        }
-//
-//        @GetMapping("/busca/produto")
-//        public List<Hospital> procurarHospitaisporProduto(@RequestParam("produto") String produtoNome) {
-//            return this.hospitalService.procurarHospitaisporProduto(produtoNome);
-//        }
 
 }
 

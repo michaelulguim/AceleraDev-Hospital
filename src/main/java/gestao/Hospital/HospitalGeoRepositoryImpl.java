@@ -11,13 +11,13 @@ import java.util.List;
 
 @Repository
 @Transactional(readOnly = true)
-public class HospitalGeoRepositoryImpl implements HospitalGeoRepositoryCustom {
+public class HospitalGeoRepositoryImpl implements HospitalGeoRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
-    public List<Hospital> buscarMaisProximosPorGeo(Ponto point) {
+    public List<Hospital> buscarMaisProximosPorGeo(Ponto ponto) {
         String sql = "SELECT hospital.*, " +
                 "(6371 * acos(" +
                 "cos( radians( :lat ) ) " +
@@ -28,8 +28,8 @@ public class HospitalGeoRepositoryImpl implements HospitalGeoRepositoryCustom {
                 " FROM hospital ORDER BY distancia ASC LIMIT 5";
 
         Query query = entityManager.createNativeQuery(sql, Hospital.class);
-        query.setParameter("lon", point.getLongitude());
-        query.setParameter("lat", point.getLatitude());
+        query.setParameter("lon", ponto.getLongitude());
+        query.setParameter("lat", ponto.getLatitude());
 
         return query.getResultList();
 
