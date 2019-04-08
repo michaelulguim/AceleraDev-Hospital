@@ -2,7 +2,6 @@ package gestao.models.hospital;
 
 import gestao.models.banco_de_sangue.BancoDeSangueENUM;
 
-import gestao.models.TipoLeito;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
@@ -59,7 +58,7 @@ public class Hospital {
 
 //    @OneToMany(targetEntity=Leitos.class, cascade=CascadeType.ALL, mappedBy = "hospital")
     @ElementCollection
-    private Map<TipoLeito, Integer> leitos;
+    private Map<TipoLeitoENUM, Integer> leitos;
     //
 
 
@@ -168,11 +167,11 @@ public class Hospital {
         this.bancoDeSangue = bancoDeSangue;
     }
 
-    public Map<TipoLeito, Integer> getLeitos() {
+    public Map<TipoLeitoENUM, Integer> getLeitos() {
         return leitos;
     }
 
-    public void setLeitos(Map<TipoLeito, Integer> leitos) {
+    public void setLeitos(Map<TipoLeitoENUM, Integer> leitos) {
         this.leitos = leitos;
     }
 }

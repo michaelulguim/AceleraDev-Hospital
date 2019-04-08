@@ -1,8 +1,7 @@
 package gestao.models.paciente;
 
-import gestao.models.TipoLeito;
+import gestao.models.hospital.TipoLeitoENUM;
 import gestao.models.hospital.Hospital;
-import gestao.models.paciente.Paciente;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -19,7 +18,7 @@ public class HistoricoPaciente {
     private Hospital hospital;
     @ManyToOne
     private Paciente paciente;
-    private TipoLeito leito;
+    private TipoLeitoENUM leito;
     private String descricaoAtendimento;
 
 
@@ -56,11 +55,11 @@ public class HistoricoPaciente {
         this.paciente = paciente;
     }
 
-    public TipoLeito getLeito() {
+    public TipoLeitoENUM getLeito() {
         return leito;
     }
 
-    public void setLeito(TipoLeito leito) {
+    public void setLeito(TipoLeitoENUM leito) {
         this.leito = leito;
     }
 

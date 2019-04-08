@@ -1,4 +1,4 @@
-package gestao.models;
+package gestao.models.hospital;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
  *
  */
 
-public enum TipoLeito {
+public enum TipoLeitoENUM {
 
     CIR_BUCOMAXILOFACIAL,
     CIR_CARDIOLOGIA,
@@ -55,9 +55,9 @@ public enum TipoLeito {
     OUTROS;
 
 
-    @JsonCreator
-     public static TipoLeito create(String name) {
-        return TipoLeito.valueOf(name);
+   @JsonCreator
+     public static TipoLeitoENUM create(String name) {
+        return valueOf(name);
     }
 
     @JsonValue

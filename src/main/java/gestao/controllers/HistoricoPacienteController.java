@@ -1,13 +1,12 @@
 package gestao.controllers;
 
-import gestao.models.TipoLeito;
+import gestao.models.hospital.Leitos;
+import gestao.models.hospital.TipoLeitoENUM;
 import gestao.models.hospital.Hospital;
-import gestao.models.paciente.HistoricoPaciente;
 import gestao.services.HistoricoPacienteService;
 import io.swagger.annotations.ApiOperation;
 
 import com.google.gson.Gson;
-import gestao.exceptions.paciente.PacienteSemCheckoutException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,8 +33,8 @@ public class HistoricoPacienteController {
 
     @PutMapping("/{cpf}/internar") //Define leito de internação para o atendimento atual
     @ApiOperation(value="Realiza o internamento no hospital.")
-    public ResponseEntity<String> internado(@RequestBody TipoLeito tipoLeito, @PathVariable(value = "cpf") String cpf) {
-        if(historicoPacienteService.internar(cpf, tipoLeito)) {
+    public ResponseEntity<String> internado(@RequestBody Leitos leito, @PathVariable(value = "cpf") String cpf) {
+        if(historicoPacienteService.internar(cpf, leito)) {
             return new ResponseEntity<String>(gson.toJson("Internação realizada"), HttpStatus.OK);
         }
         return ResponseEntity.notFound().build();

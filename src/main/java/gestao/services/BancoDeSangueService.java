@@ -13,7 +13,6 @@ import java.util.Map;
 public class BancoDeSangueService {
     private final HospitalRepository hospitalRepository;
 
-
     public BancoDeSangueService(HospitalRepository hospitalRepository) {
         this.hospitalRepository = hospitalRepository;
     }

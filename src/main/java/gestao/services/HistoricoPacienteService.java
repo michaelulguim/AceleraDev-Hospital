@@ -3,7 +3,8 @@ package gestao.services;
 
 import gestao.exceptions.LeitoIndisponivelException;
 import gestao.exceptions.paciente.PacienteSemCheckinException;
-import gestao.models.TipoLeito;
+import gestao.models.hospital.Leitos;
+import gestao.models.hospital.TipoLeitoENUM;
 import gestao.models.hospital.Hospital;
 import gestao.models.paciente.HistoricoPaciente;
 import gestao.respositories.HistoricoPacienteRepository;
@@ -35,7 +36,7 @@ public class HistoricoPacienteService {
         this.hospitalRepository = hospitalRepository;
     }
 
-    public boolean checkin(String cpf, Hospital hospital) throws PacienteSemCheckoutException {
+    public boolean checkin(String cpf, Hospital hospital) {
         cpf = cpf.replaceAll(Pattern.quote("."), "").replaceAll(("-"), "");
         try {
             Paciente paciente = pacienteRepository.findByCpf(cpf);
@@ -57,18 +58,22 @@ public class HistoricoPacienteService {
         }
     }
 
-    public boolean internar(String cpf, TipoLeito tipoLeito) {
+    public boolean internar(String cpf, Leitos leito) {
         cpf = cpf.replaceAll(Pattern.quote("."), "").replaceAll(("-"), "");
         try {
+
             Paciente paciente = pacienteRepository.findByCpf(cpf);
             HistoricoPaciente historicoPaciente = historicoPacienteRepository.findByDataEntradaHospital(paciente.getUltimoCheckin());
-            Map<TipoLeito, Integer> leitos = historicoPaciente.getHospital().getLeitos();
-            if (leitos.get(tipoLeito) > 0) {
-                leitos.put(tipoLeito, (leitos.get(tipoLeito) - 1));
+            if (historicoPaciente.getLeito() != null) {  //Libera leito atual para receber outro leito
+                liberarLeito(historicoPaciente.getHospital(), historicoPaciente);
+            }
+            Map<TipoLeitoENUM, Integer> leitos = historicoPaciente.getHospital().getLeitos();
+            if (leitos.get(leito.getTipo()) > 0) {
+                leitos.put(leito.getTipo(), (leitos.get(leito.getTipo()) - 1));
                 Hospital hospital = historicoPaciente.getHospital();
                 hospital.setLeitos(leitos);
                 hospitalRepository.saveAndFlush(hospital);
-                historicoPaciente.setLeito(tipoLeito);
+                historicoPaciente.setLeito(leito.getTipo());
                 historicoPacienteRepository.saveAndFlush(historicoPaciente);
                 return true;
             } else {
@@ -80,7 +85,7 @@ public class HistoricoPacienteService {
         }
     }
 
-    public boolean checkout(String cpf, String descricaoAtendimento) throws PacienteSemCheckinException {
+    public boolean checkout(String cpf, String descricaoAtendimento) {
         cpf = cpf.replaceAll(Pattern.quote("."), "").replaceAll(("-"), "");
         try {
             Paciente paciente = pacienteRepository.findByCpf(cpf);
@@ -92,10 +97,18 @@ public class HistoricoPacienteService {
             historicoPaciente.setDataSaidaHospital(LocalDateTime.now());
             pacienteRepository.saveAndFlush(paciente);
             historicoPacienteRepository.saveAndFlush(historicoPaciente);
+            liberarLeito(historicoPaciente.getHospital(), historicoPaciente);
             return true;
         } catch (NullPointerException ex) {
             return false;
         }
+    }
+
+    public void liberarLeito(Hospital hospital, HistoricoPaciente historicoPaciente) {
+        Map<TipoLeitoENUM, Integer> leitos = historicoPaciente.getHospital().getLeitos();
+        leitos.put(historicoPaciente.getLeito(), leitos.get(historicoPaciente.getLeito()) + 1);
+        hospital.setLeitos(leitos);
+        hospitalRepository.saveAndFlush(hospital);
     }
 
 

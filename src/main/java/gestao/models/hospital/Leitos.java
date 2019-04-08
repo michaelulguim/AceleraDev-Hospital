@@ -1,18 +1,16 @@
 package gestao.models.hospital;
 
-import gestao.models.TipoLeito;
-
 public class Leitos {
 
-    private TipoLeito tipo;
+    private TipoLeitoENUM tipo;
 
     private Integer quantidade;
 
-    public TipoLeito getTipo() {
+    public TipoLeitoENUM getTipo() {
         return tipo;
     }
 
-    public void setTipo(TipoLeito tipo) {
+    public void setTipo(TipoLeitoENUM tipo) {
         this.tipo = tipo;
     }
 
