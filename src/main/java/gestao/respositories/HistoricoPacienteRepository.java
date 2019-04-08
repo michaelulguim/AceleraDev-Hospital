@@ -1,8 +1,8 @@
 package gestao.respositories;
 
-//import gestao.models.Paciente.HistoricoPaciente;
-//import gestao.models.Paciente.Paciente;
-import gestao.models.HistoricoPaciente;
+//import gestao.models.paciente.Paciente.HistoricoPaciente;
+//import gestao.models.paciente.Paciente.Paciente;
+import gestao.models.paciente.HistoricoPaciente;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;

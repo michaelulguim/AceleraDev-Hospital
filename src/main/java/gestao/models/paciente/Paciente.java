@@ -1,9 +1,7 @@
-package gestao.models;
+package gestao.models.paciente;
 
 
-import gestao.models.HistoricoPaciente;
 import gestao.models.hospital.Hospital;
-import gestao.models.paciente.SexoPacienteENUM;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
@@ -30,9 +28,6 @@ public class Paciente {
     private SexoPacienteENUM sexo;
     private LocalDateTime ultimoCheckin;
     private boolean emAtendimento;
-
-    @ManyToOne
-    private Hospital hospital;
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<HistoricoPaciente> historicoPaciente;
@@ -72,14 +67,6 @@ public class Paciente {
 
     public void setSexo(SexoPacienteENUM sexo) {
         this.sexo = sexo;
-    }
-
-    public Hospital getHospital() {
-        return hospital;
-    }
-
-    public void setHospital(Hospital hospital) {
-        this.hospital = hospital;
     }
 
     public LocalDateTime getUltimoCheckin() {

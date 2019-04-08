@@ -1,12 +1,12 @@
 package gestao.controllers;
 
-import gestao.models.Paciente;
+import gestao.models.paciente.Paciente;
 import gestao.services.PacienteService;
 import io.swagger.annotations.ApiOperation;
 
-import gestao.models.HistoricoPaciente;
-//import gestao.models.Paciente.HistoricoPaciente;
-//import gestao.models.Paciente.Paciente;
+import gestao.models.paciente.HistoricoPaciente;
+//import gestao.models.paciente.Paciente.HistoricoPaciente;
+//import gestao.models.paciente.Paciente.Paciente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

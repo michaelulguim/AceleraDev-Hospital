@@ -1,8 +1,8 @@
 package gestao.exceptions.paciente;
 
-public class PacienteSemCheckinException extends Exception{
+public class PacienteSemCheckinException extends RuntimeException{
 
-    public PacienteSemCheckinException(String msg) {
-        super(msg);
+    public PacienteSemCheckinException() {
+        super("Paciente não deu entrada no hospital");
     }
 }

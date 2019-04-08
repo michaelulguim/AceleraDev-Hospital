@@ -1,6 +1,6 @@
 package gestao.controllers;
 
-import gestao.models.BancoDeSangue;
+import gestao.models.banco_de_sangue.BancoDeSangue;
 import gestao.services.BancoDeSangueService;
 import io.swagger.annotations.ApiOperation;
 

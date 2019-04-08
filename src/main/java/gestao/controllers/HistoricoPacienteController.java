@@ -1,6 +1,8 @@
 package gestao.controllers;
 
-import gestao.models.HistoricoPaciente;
+import gestao.models.TipoLeito;
+import gestao.models.hospital.Hospital;
+import gestao.models.paciente.HistoricoPaciente;
 import gestao.services.HistoricoPacienteService;
 import io.swagger.annotations.ApiOperation;
 
@@ -23,8 +25,8 @@ public class HistoricoPacienteController {
 
     @PostMapping("/{cpf}/checkin") //Realiza checkin
     @ApiOperation(value="Realiza o checkin no hospital.")
-    public ResponseEntity<String> checkin(@RequestBody HistoricoPaciente historico, @PathVariable(value = "cpf") String cpf) throws PacienteSemCheckoutException {
-        if(historicoPacienteService.checkin(cpf, historico)) {
+    public ResponseEntity<String> checkin(@RequestBody Hospital hospital, @PathVariable(value = "cpf") String cpf){
+        if(historicoPacienteService.checkin(cpf, hospital)) {
             return new ResponseEntity<String>(gson.toJson("Checkin realizado"), HttpStatus.OK);
         }
         return ResponseEntity.notFound().build();
@@ -32,8 +34,8 @@ public class HistoricoPacienteController {
 
     @PutMapping("/{cpf}/internar") //Define leito de internação para o atendimento atual
     @ApiOperation(value="Realiza o internamento no hospital.")
-    public ResponseEntity<String> internado(@RequestBody HistoricoPaciente historico, @PathVariable(value = "cpf") String cpf) {
-        if(historicoPacienteService.internado(cpf, historico)) {
+    public ResponseEntity<String> internado(@RequestBody TipoLeito tipoLeito, @PathVariable(value = "cpf") String cpf) {
+        if(historicoPacienteService.internar(cpf, tipoLeito)) {
             return new ResponseEntity<String>(gson.toJson("Internação realizada"), HttpStatus.OK);
         }
         return ResponseEntity.notFound().build();
@@ -41,8 +43,8 @@ public class HistoricoPacienteController {
 
     @PutMapping("/{cpf}/checkout") // Realiza checkout
     @ApiOperation(value="Realiza o checkout no hospital.")
-    public ResponseEntity<String> checkout(@RequestBody HistoricoPaciente historico, @PathVariable(value = "cpf") String cpf) throws PacienteSemCheckoutException {
-        if(historicoPacienteService.checkout(cpf, historico)) {
+    public ResponseEntity<String> checkout(@RequestBody String descricaoAtentimento, @PathVariable(value = "cpf") String cpf) {
+        if(historicoPacienteService.checkout(cpf, descricaoAtentimento)) {
             return new ResponseEntity<String>(gson.toJson("Checkout realizado"), HttpStatus.OK);
         }
         return ResponseEntity.notFound().build();

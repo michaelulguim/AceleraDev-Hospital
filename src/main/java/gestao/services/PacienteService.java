@@ -1,9 +1,9 @@
 package gestao.services;
 
-import gestao.models.HistoricoPaciente;
-//import gestao.models.Paciente.HistoricoPaciente;
-//import gestao.models.Paciente.Paciente;
-import gestao.models.Paciente;
+import gestao.models.paciente.HistoricoPaciente;
+//import gestao.models.paciente.Paciente.HistoricoPaciente;
+//import gestao.models.paciente.Paciente.Paciente;
+import gestao.models.paciente.Paciente;
 import gestao.exceptions.paciente.PacienteNaoEncontradoException;
 import gestao.respositories.PacienteRepository;
 import org.springframework.stereotype.Service;

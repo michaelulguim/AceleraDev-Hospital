@@ -1,6 +1,8 @@
-package gestao.models;
+package gestao.models.paciente;
 
+import gestao.models.TipoLeito;
 import gestao.models.hospital.Hospital;
+import gestao.models.paciente.Paciente;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,14 +15,13 @@ public class HistoricoPaciente {
     @Id
     private LocalDateTime dataEntradaHospital;
     private LocalDateTime dataSaidaHospital;
-    private String leito;
-
     @OneToOne
-    //@NotEmpty
     private Hospital hospital;
-
     @ManyToOne
     private Paciente paciente;
+    private TipoLeito leito;
+    private String descricaoAtendimento;
+
 
 
     public LocalDateTime getDataEntradaHospital() {
@@ -39,14 +40,6 @@ public class HistoricoPaciente {
         this.dataSaidaHospital = dataSaidaHospital;
     }
 
-    public String getLeito() {
-        return leito;
-    }
-
-    public void setLeito(String leito) {
-        this.leito = leito;
-    }
-
     public Hospital getHospital() {
         return hospital;
     }
@@ -63,4 +56,19 @@ public class HistoricoPaciente {
         this.paciente = paciente;
     }
 
+    public TipoLeito getLeito() {
+        return leito;
+    }
+
+    public void setLeito(TipoLeito leito) {
+        this.leito = leito;
+    }
+
+    public String getDescricaoAtendimento() {
+        return descricaoAtendimento;
+    }
+
+    public void setDescricaoAtendimento(String descricaoAtendimento) {
+        this.descricaoAtendimento = descricaoAtendimento;
+    }
 }

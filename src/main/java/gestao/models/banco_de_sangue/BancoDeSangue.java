@@ -1,4 +1,4 @@
-package gestao.models;
+package gestao.models.banco_de_sangue;
 
 import gestao.models.banco_de_sangue.BancoDeSangueENUM;
 

@@ -1,9 +1,9 @@
 package gestao.exceptions.paciente;
 
-public class PacienteSemCheckoutException extends Exception {
+public class PacienteSemCheckoutException extends RuntimeException {
 
-    public PacienteSemCheckoutException(String msg) {
-        super(msg);
+    public PacienteSemCheckoutException() {
+        super("Paciente já está em atendimento");
     }
 
 }

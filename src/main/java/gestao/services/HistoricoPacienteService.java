@@ -1,15 +1,21 @@
 package gestao.services;
 
 
-import gestao.models.HistoricoPaciente;
+import gestao.exceptions.LeitoIndisponivelException;
+import gestao.exceptions.paciente.PacienteSemCheckinException;
+import gestao.models.TipoLeito;
+import gestao.models.hospital.Hospital;
+import gestao.models.paciente.HistoricoPaciente;
 import gestao.respositories.HistoricoPacienteRepository;
-import gestao.models.Paciente;
+import gestao.models.paciente.Paciente;
 import gestao.respositories.PacienteRepository;
 import gestao.exceptions.paciente.PacienteSemCheckoutException;
+import gestao.respositories.hospital.HospitalRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 @Service
@@ -21,61 +27,73 @@ public class HistoricoPacienteService {
     // @Autowired
     private HistoricoPacienteRepository historicoPacienteRepository;
 
-    public HistoricoPacienteService(HistoricoPacienteRepository historicoPacienteRepository, PacienteRepository pacienteRepository) {
+    private HospitalRepository hospitalRepository;
+
+    public HistoricoPacienteService(HistoricoPacienteRepository historicoPacienteRepository, PacienteRepository pacienteRepository, HospitalRepository hospitalRepository) {
         this.historicoPacienteRepository = historicoPacienteRepository;
         this.pacienteRepository = pacienteRepository;
+        this.hospitalRepository = hospitalRepository;
     }
 
-    public boolean checkin(String cpf, HistoricoPaciente historico) throws PacienteSemCheckoutException {
+    public boolean checkin(String cpf, Hospital hospital) throws PacienteSemCheckoutException {
         cpf = cpf.replaceAll(Pattern.quote("."), "").replaceAll(("-"), "");
-
         try {
             Paciente paciente = pacienteRepository.findByCpf(cpf);
-            if (paciente.isEmAtendimento()) throw new PacienteSemCheckoutException("Paciente já está em atendimento");
+            if (paciente.isEmAtendimento()) throw new PacienteSemCheckoutException();
             paciente.setEmAtendimento(true);
-            historico.setPaciente(paciente);
-            historico.setHospital(paciente.getHospital());
-            historico.setDataEntradaHospital(LocalDateTime.now());
-            paciente.setUltimoCheckin(historico.getDataEntradaHospital());
+            HistoricoPaciente historicoPaciente = new HistoricoPaciente();
+            historicoPaciente.setPaciente(paciente);
+            historicoPaciente.setHospital(hospitalRepository.findById(hospital.getId()).get());
+            historicoPaciente.setDataEntradaHospital(LocalDateTime.now());
+            paciente.setUltimoCheckin(historicoPaciente.getDataEntradaHospital());
             List<HistoricoPaciente> listaHistorico = paciente.pegaHistoricoPaciente();
-            listaHistorico.add(historico);
+            listaHistorico.add(historicoPaciente);
             paciente.setHistoricoPaciente(listaHistorico);
-            historicoPacienteRepository.saveAndFlush(historico);
+            historicoPacienteRepository.saveAndFlush(historicoPaciente);
             pacienteRepository.saveAndFlush(paciente);
             return true;
         } catch (NullPointerException ex) {
             return false;
         }
-
     }
 
-    public boolean internado(String cpf, HistoricoPaciente historico) {
+    public boolean internar(String cpf, TipoLeito tipoLeito) {
         cpf = cpf.replaceAll(Pattern.quote("."), "").replaceAll(("-"), "");
         try {
             Paciente paciente = pacienteRepository.findByCpf(cpf);
             HistoricoPaciente historicoPaciente = historicoPacienteRepository.findByDataEntradaHospital(paciente.getUltimoCheckin());
-            historicoPaciente.setLeito(historico.getLeito());
-            historicoPacienteRepository.saveAndFlush(historicoPaciente);
-            return true;
+            Map<TipoLeito, Integer> leitos = historicoPaciente.getHospital().getLeitos();
+            if (leitos.get(tipoLeito) > 0) {
+                leitos.put(tipoLeito, (leitos.get(tipoLeito) - 1));
+                Hospital hospital = historicoPaciente.getHospital();
+                hospital.setLeitos(leitos);
+                hospitalRepository.saveAndFlush(hospital);
+                historicoPaciente.setLeito(tipoLeito);
+                historicoPacienteRepository.saveAndFlush(historicoPaciente);
+                return true;
+            } else {
+                throw new LeitoIndisponivelException();
+            }
+
         } catch (NullPointerException ex) {
             return false;
         }
     }
 
-    public boolean checkout(String cpf, HistoricoPaciente historico) throws PacienteSemCheckoutException {
+    public boolean checkout(String cpf, String descricaoAtendimento) throws PacienteSemCheckinException {
         cpf = cpf.replaceAll(Pattern.quote("."), "").replaceAll(("-"), "");
         try {
             Paciente paciente = pacienteRepository.findByCpf(cpf);
             if (!paciente.isEmAtendimento())
-                 throw new PacienteSemCheckoutException("Paciente não deu entrada no hospital");
+                throw new PacienteSemCheckinException();
             paciente.setEmAtendimento(false);
-            historico.setPaciente(paciente);
             HistoricoPaciente historicoPaciente = historicoPacienteRepository.findByDataEntradaHospital(paciente.getUltimoCheckin());
+            historicoPaciente.setDescricaoAtendimento(descricaoAtendimento);
             historicoPaciente.setDataSaidaHospital(LocalDateTime.now());
             pacienteRepository.saveAndFlush(paciente);
             historicoPacienteRepository.saveAndFlush(historicoPaciente);
             return true;
-        }catch(NullPointerException ex) {
+        } catch (NullPointerException ex) {
             return false;
         }
     }
