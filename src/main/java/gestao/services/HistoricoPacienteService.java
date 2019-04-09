@@ -3,8 +3,9 @@ package gestao.services;
 
 import gestao.exceptions.LeitoIndisponivelException;
 import gestao.exceptions.paciente.PacienteSemCheckinException;
-import gestao.models.hospital.Leitos;
-import gestao.models.hospital.TipoLeitoENUM;
+//import gestao.models.hospital.Leitos;
+import gestao.models.leito.TipoLeitoENUM;
+import gestao.models.leito.Leitos;
 import gestao.models.hospital.Hospital;
 import gestao.models.paciente.HistoricoPaciente;
 import gestao.respositories.HistoricoPacienteRepository;

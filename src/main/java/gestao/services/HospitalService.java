@@ -2,6 +2,8 @@ package gestao.services;
 
 
 import gestao.models.banco_de_sangue.BancoDeSangueFactory;
+import gestao.models.leito.LeitoFactory;
+
 import gestao.exceptions.HospitalNotFoundException;
 import gestao.models.hospital.Hospital;
 import gestao.respositories.hospital.HospitalRepository;
@@ -25,6 +27,7 @@ public class HospitalService {
 
     public Hospital create(Hospital hospital) {
         hospital.setBancoDeSangue(BancoDeSangueFactory.createDefault());
+        hospital.setLeitos(LeitoFactory.createDefault());
         return this.repository.save(hospital);
     }
 

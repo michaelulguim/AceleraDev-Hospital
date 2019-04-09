@@ -1,6 +1,6 @@
 package gestao.models.paciente;
 
-import gestao.models.hospital.TipoLeitoENUM;
+import gestao.models.leito.TipoLeitoENUM;
 import gestao.models.hospital.Hospital;
 
 import javax.persistence.*;
