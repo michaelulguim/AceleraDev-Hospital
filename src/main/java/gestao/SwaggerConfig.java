@@ -35,7 +35,7 @@ public class SwaggerConfig {
                 "API REST de cadastro de hospitais.",
                 "1.0",
                 "Terms of Service",
-                new Contact("José Espinheira","http://www.google.com.br",
+                new Contact("Jardel Casteluber, José Espinheira, Leonardo Simões, Michael Ulguim","http://",
                         "joseespinheira@gmail.com"),
                 "Apache License Version 2.0",
                 "https://www.apache.org/licesen.html", new ArrayList<VendorExtension>()
