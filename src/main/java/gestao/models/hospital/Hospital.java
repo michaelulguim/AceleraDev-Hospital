@@ -1,6 +1,9 @@
 package gestao.models.hospital;
 
+
 import gestao.models.banco_de_sangue.BancoDeSangueENUM;
+import gestao.models.leito.TipoLeitoENUM;
+
 
 import org.hibernate.validator.constraints.Range;
 

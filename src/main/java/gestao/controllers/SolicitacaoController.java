@@ -1,5 +1,7 @@
 package gestao.controllers;
 
+import io.swagger.annotations.ApiOperation;
+
 import com.google.gson.Gson;
 import gestao.models.banco_de_sangue.BancoDeSangueENUM;
 import gestao.services.BancoDeSangueSolicitacaoService;
@@ -21,6 +23,7 @@ public class SolicitacaoController {
     BancoDeSangueSolicitacaoService bancoDeSangueSolicitacaoService;
 
     @GetMapping("/hospitais/{id}/bancodesangue/{tipo}/{quantidade}")
+    @ApiOperation(value="Solicita um ativo de outro hospital.")
     public ResponseEntity<String> solicitarSangue(@PathVariable(value = "id") long id, @PathVariable(value = "tipo") BancoDeSangueENUM tipo, @PathVariable(value = "quantidade") Integer quantidade) {
         if(bancoDeSangueSolicitacaoService.solicitarSangue(id, tipo, quantidade)) {
             return new ResponseEntity<String >(gson.toJson("Transferência realizada"), HttpStatus.OK);

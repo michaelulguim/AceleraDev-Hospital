@@ -2,10 +2,16 @@ package gestao.services;
 
 
 import gestao.models.banco_de_sangue.BancoDeSangueFactory;
+import gestao.models.leito.LeitoFactory;
+
 import gestao.exceptions.HospitalNotFoundException;
 import gestao.models.hospital.Hospital;
 import gestao.respositories.hospital.HospitalRepository;
 import gestao.utils.Geolocalizacao.Ponto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -19,12 +25,13 @@ public class HospitalService {
         this.repository = hospitalRepository;
     }
 
-    public List<Hospital> findAll() {
-        return this.repository.findAll();
+    public Page<Hospital> findAll(Pageable page) {
+        return this.repository.findAll(page);
     }
 
     public Hospital create(Hospital hospital) {
         hospital.setBancoDeSangue(BancoDeSangueFactory.createDefault());
+        hospital.setLeitos(LeitoFactory.createDefault());
         return this.repository.save(hospital);
     }
 

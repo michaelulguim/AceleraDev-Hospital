@@ -1,7 +1,7 @@
 package gestao.controllers;
 
-import gestao.models.hospital.Leitos;
-import gestao.models.hospital.TipoLeitoENUM;
+import gestao.models.leito.Leitos;
+import gestao.models.leito.TipoLeitoENUM;
 import gestao.models.hospital.Hospital;
 import gestao.services.HistoricoPacienteService;
 import io.swagger.annotations.ApiOperation;

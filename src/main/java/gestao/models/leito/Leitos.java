@@ -1,4 +1,6 @@
-package gestao.models.hospital;
+package gestao.models.leito;
+
+import gestao.models.leito.TipoLeitoENUM;
 
 public class Leitos {
 

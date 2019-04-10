@@ -1,4 +1,4 @@
-package gestao.models.hospital;
+package gestao.models.leito;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;

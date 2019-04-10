@@ -39,7 +39,7 @@ A partir da API que gerencia os hospitais dentro do SUS o usuário conseguirá, 
 - Cadastrar produtos e suas respectivas quantidades
 - Cadastrar e gerenciar banco de sangue
 
-### /v1/hospitais/{id}
+### /api/v1/hospitais/{id}
 
 Método: GET
 Retorna as informações do hospital, por exemplo:
@@ -49,12 +49,12 @@ Retorna as informações do hospital, por exemplo:
 - Número de leitos
 - Números de leitos disponíveis
 
-### /v1/hospitais/{id}/estoque
+### /api/v1/hospitais/{id}/estoque
 
 Método: GET
 Retorna as informações dos produtos existentes estoque, por exemplo.
 
-### /v1/hospitais/{id}/estoque/{produto}
+### /api/v1/hospitais/{id}/estoque/{produto}
 
 Método: GET
 Retorna mais detalhes de um produto.
@@ -63,12 +63,12 @@ Retorna mais detalhes de um produto.
 - Descrição
 - Quantidade
 
-### /v1/hospitais/{id}/pacientes
+### /api/v1/hospitais/{id}/pacientes
 
 Método: GET
 Retorna o nome dos pacientes dentro do hospital.
 
-### /v1/hospitais/{id}/pacientes/{paciente}
+### /api/v1/hospitais/{id}/pacientes/{paciente}
 
 Método: GET
 Retorna todas as informações do paciente cadastrado, por exemplo:
