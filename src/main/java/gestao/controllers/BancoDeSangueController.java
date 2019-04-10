@@ -16,7 +16,7 @@ public class BancoDeSangueController {
     @Autowired
     BancoDeSangueService bancoDeSangueService;
 
-    @PutMapping("/adicionarSangue")
+    @PutMapping("/adicionaSangue")
     @ApiOperation(value="Adicionar sangue ao hospital.")
     public ResponseEntity<Hospital> add(@RequestBody BancoDeSangue bancoDeSangue, @PathVariable("id") long id) {
         if(bancoDeSangueService.adicionarSangue(id, bancoDeSangue.getTipo(), bancoDeSangue.getQuantidadeEmLitros())) {
@@ -25,7 +25,7 @@ public class BancoDeSangueController {
        return ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/removerSangue")
+    @PutMapping("/removeSangue")
     @ApiOperation(value="Remove Sangue do hospital.")
     public ResponseEntity<Hospital> remove(@RequestBody BancoDeSangue bancoDeSangue, @PathVariable("id") long id) {
         if(bancoDeSangueService.removerSangue(id, bancoDeSangue.getTipo(), bancoDeSangue.getQuantidadeEmLitros())) {

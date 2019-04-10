@@ -56,7 +56,7 @@ public class Hospital {
     @ElementCollection
     private Map<BancoDeSangueENUM, Integer> bancoDeSangue;
 
-//    @OneToMany(targetEntity=Leitos.class, cascade=CascadeType.ALL, mappedBy = "hospital")
+
     @ElementCollection
     private Map<TipoLeitoENUM, Integer> leitos;
     //

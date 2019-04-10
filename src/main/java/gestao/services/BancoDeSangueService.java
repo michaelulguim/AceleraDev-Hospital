@@ -3,6 +3,7 @@ package gestao.services;
 import gestao.models.banco_de_sangue.BancoDeSangueENUM;
 import gestao.models.hospital.Hospital;
 import gestao.respositories.hospital.HospitalRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,15 +12,14 @@ import java.util.Map;
 
 @Service
 public class BancoDeSangueService {
-    private final HospitalRepository hospitalRepository;
+    @Autowired
+    HospitalRepository hospitalRepository;
 
-    public BancoDeSangueService(HospitalRepository hospitalRepository) {
-        this.hospitalRepository = hospitalRepository;
-    }
 
-    public boolean adicionarSangue(long cpf, BancoDeSangueENUM tipo, Integer quantidadeEmLitros) {
+
+    public boolean adicionarSangue(long id, BancoDeSangueENUM tipo, Integer quantidadeEmLitros) {
         try {
-            Hospital hospital = hospitalRepository.findById(cpf).get();
+            Hospital hospital = hospitalRepository.findById(id).get();
             Integer add = hospital.getBancoDeSangue().get(tipo);
             add += quantidadeEmLitros;
             Map<BancoDeSangueENUM, Integer> bancoDeSangue = hospital.getBancoDeSangue();
