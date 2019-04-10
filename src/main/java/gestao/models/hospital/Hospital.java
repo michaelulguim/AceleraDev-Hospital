@@ -1,6 +1,7 @@
 package gestao.models.hospital;
 
 
+import gestao.models.Produto.Produto;
 import gestao.models.banco_de_sangue.BancoDeSangueENUM;
 import gestao.models.leito.TipoLeitoENUM;
 
@@ -9,6 +10,7 @@ import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.List;
 import java.util.Map;
 
 @Entity
@@ -62,7 +64,9 @@ public class Hospital {
 
     @ElementCollection
     private Map<TipoLeitoENUM, Integer> leitos;
-    //
+
+    @OneToMany(cascade = CascadeType.ALL)
+    List<Produto> produtos;
 
 
     public Long getId() {
@@ -161,7 +165,6 @@ public class Hospital {
         this.formatted_address = formatted_address;
     }
 
-
     public Map<BancoDeSangueENUM, Integer> getBancoDeSangue() {
         return bancoDeSangue;
     }
@@ -176,5 +179,13 @@ public class Hospital {
 
     public void setLeitos(Map<TipoLeitoENUM, Integer> leitos) {
         this.leitos = leitos;
+    }
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
     }
 }
