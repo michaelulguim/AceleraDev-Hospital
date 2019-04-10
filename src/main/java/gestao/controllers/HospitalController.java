@@ -1,5 +1,6 @@
 package gestao.controllers;
 
+import gestao.models.hospital.HospitalDTO;
 import gestao.services.HospitalService;
 import gestao.models.hospital.Hospital;
 import gestao.utils.Geolocalizacao.Ponto;
@@ -30,15 +31,15 @@ public class HospitalController {
 
     @GetMapping
     @ApiOperation(value="Retorna uma lista de Hospitais")
-    public ResponseEntity<Page<Hospital>> index() {
+    public ResponseEntity<List<Hospital>> index() {
         return this.index(1,10);
     }
 
     @GetMapping(params = {"page", "size"})
     @ApiOperation(value="Retorna uma lista de Hospitais")
-    public ResponseEntity<Page<Hospital>> index(@RequestParam("page") int page,
+    public ResponseEntity<List<Hospital>> index(@RequestParam("page") int page,
                                                 @RequestParam("size") int size) {
-        return ResponseEntity.ok().body(service.findAll(PageRequest.of(page, size)));
+        return ResponseEntity.ok().body(service.findAll(PageRequest.of(page, size)).getContent());
     }
 
     @GetMapping("/{id}")
@@ -53,22 +54,17 @@ public class HospitalController {
 
     @PostMapping
     @ApiOperation(value="Salva um hospital.")
-    public ResponseEntity<Hospital> store(@RequestBody Hospital hospital, BindingResult resultado) {
-         if (resultado.hasErrors()) {
-             return ResponseEntity.badRequest().body(null);
-         }
-         this.service.create(hospital);
-         return ResponseEntity.ok().body(hospital);
+    public ResponseEntity<Hospital> store(@RequestBody HospitalDTO hospitalDTO) {
+        Hospital hospital = this.service.create(hospitalDTO);
+        return ResponseEntity.ok().body(hospital);
 
     }
 
     @PutMapping("/{id}")
     @ApiOperation(value="Atualiza Hospital")
-    public ResponseEntity<String> update(@PathVariable(value = "id") Long id, @RequestBody Hospital hospital) {
-        if (this.service.update(id, hospital)) {
-            return ResponseEntity.ok().body("Hospital atualizado");
-        }
-        return ResponseEntity.badRequest().body(null);
+    public ResponseEntity<String> update(@PathVariable(value = "id") Long id, @RequestBody HospitalDTO hospital) {
+            this.service.update(id, hospital);
+            return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")

@@ -2,16 +2,17 @@ package gestao.services;
 
 
 import gestao.models.banco_de_sangue.BancoDeSangueFactory;
+import gestao.models.hospital.HospitalDTO;
 import gestao.models.leito.LeitoFactory;
 
 import gestao.exceptions.HospitalNotFoundException;
 import gestao.models.hospital.Hospital;
 import gestao.respositories.hospital.HospitalRepository;
+import gestao.models.Endereco;
+import gestao.utils.Geolocalizacao.GoogleApi;
 import gestao.utils.Geolocalizacao.Ponto;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -29,9 +30,11 @@ public class HospitalService {
         return this.repository.findAll(page);
     }
 
-    public Hospital create(Hospital hospital) {
+    public Hospital create(HospitalDTO hospitalDTO) {
+
+        Hospital hospital = Hospital.criarViaDTO(hospitalDTO);
         hospital.setBancoDeSangue(BancoDeSangueFactory.createDefault());
-        hospital.setLeitos(LeitoFactory.createDefault());
+
         return this.repository.save(hospital);
     }
 
@@ -39,32 +42,18 @@ public class HospitalService {
         return this.repository.findById(id);
     }
 
-    public boolean update(Long id, Hospital hospital) {
-        return this.repository.findById(id).map(x -> {
-            x.setNome(hospital.getNome());
-            x.setCep(hospital.getCep());
-            x.setLogradouro(hospital.getLogradouro());
-            x.setComplemento(hospital.getComplemento());
-            x.setBairro(hospital.getBairro());
-            x.setLocalidade(hospital.getLocalidade());
-            x.setUf(hospital.getUf());
-            x.setNumero(hospital.getNumero());
-            x.setLatitude(hospital.getLatitude());
-            x.setLongitude(hospital.getLongitude());
-            x.setFormatted_address(hospital.getFormatted_address());
-            x.setBancoDeSangue(hospital.getBancoDeSangue());
-            x.setLeitos(hospital.getLeitos());
-            this.repository.save(x);
-            return true;
+    public void update(Long id, HospitalDTO hospitalDTO) {
+        this.repository.findById(id).map(x -> {
+            x.atualizarViaDTO(hospitalDTO);
+            return this.repository.save(x);
         }).orElseThrow(() -> new HospitalNotFoundException());
     }
 
-    public boolean delete(Long id) {
+    public void delete(Long id) {
         if (! this.repository.findById(id).isPresent()) {
             throw new HospitalNotFoundException();
         }
         this.repository.deleteById(id);
-        return true;
     }
 
     public List<Hospital> procurarPorHospitaisProximos(Ponto geocolocalizacao) {

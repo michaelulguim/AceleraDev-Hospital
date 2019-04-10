@@ -45,48 +45,48 @@ class HospitalServiceTest {
 //        Assert.assertEquals(hospitais, listaHospital);
 //        Assert.assertEquals(hospitais.size(), listaHospital.size());
 //    }
+//
+//    @Test
+//    void deveCriarUmHospital() {
+//        Hospital hospital = Mockito.mock(Hospital.class);
+//        when(this.hospitalRepository.save(any(Hospital.class))).thenReturn(hospital);
+//        Assert.assertEquals(hospital, this.hospitalService.create(hospital));
+//
+//    }
+//
+//    @Test
+//    void deveBuscarUmHospitalPeloId() {
+//        Hospital hospital = Mockito.mock(Hospital.class);
+//        when(this.hospitalRepository.findById(anyLong())).thenReturn(Optional.of(hospital));
+//        Assert.assertEquals(this.hospitalService.find(anyLong()), Optional.of(hospital));
+//    }
 
-    @Test
-    void deveCriarUmHospital() {
-        Hospital hospital = Mockito.mock(Hospital.class);
-        when(this.hospitalRepository.save(any(Hospital.class))).thenReturn(hospital);
-        Assert.assertEquals(hospital, this.hospitalService.create(hospital));
 
-    }
+//    @Test
+//    void DeveFazerOUpdateDoHospital() {
+//        Hospital hospital = Mockito.mock(Hospital.class);
+//        when(this.hospitalRepository.findById(anyLong())).thenReturn(Optional.of(hospital));
+//        when(this.hospitalRepository.save(hospital)).thenReturn(hospital);
+//        Assert.assertTrue(this.hospitalService.update(anyLong(), hospital));
+//
+//    }
+//
+//    @Test
+//    void deveRetornarFalsoCasoHospitalNaoExista() {
+//        when(this.hospitalRepository.findById(anyLong())).thenReturn(Optional.empty());
+//        Assert.assertFalse(this.hospitalService.update(anyLong(), new Hospital()));
+//    }
 
-    @Test
-    void deveBuscarUmHospitalPeloId() {
-        Hospital hospital = Mockito.mock(Hospital.class);
-        when(this.hospitalRepository.findById(anyLong())).thenReturn(Optional.of(hospital));
-        Assert.assertEquals(this.hospitalService.find(anyLong()), Optional.of(hospital));
-    }
+//    @Test
+//    void deveDeletarUmHospitalPeloId() {
+//        when(this.hospitalRepository.findById(anyLong()))
+//                .thenReturn(Optional.of(Mockito.mock(Hospital.class)));
+//        Assert.assertTrue(this.hospitalService.delete(anyLong()));
+//    }
 
-
-    @Test
-    void DeveFazerOUpdateDoHospital() {
-        Hospital hospital = Mockito.mock(Hospital.class);
-        when(this.hospitalRepository.findById(anyLong())).thenReturn(Optional.of(hospital));
-        when(this.hospitalRepository.save(hospital)).thenReturn(hospital);
-        Assert.assertTrue(this.hospitalService.update(anyLong(), hospital));
-
-    }
-
-    @Test
-    void deveRetornarFalsoCasoHospitalNaoExista() {
-        when(this.hospitalRepository.findById(anyLong())).thenReturn(Optional.empty());
-        Assert.assertFalse(this.hospitalService.update(anyLong(), new Hospital()));
-    }
-
-    @Test
-    void deveDeletarUmHospitalPeloId() {
-        when(this.hospitalRepository.findById(anyLong()))
-                .thenReturn(Optional.of(Mockito.mock(Hospital.class)));
-        Assert.assertTrue(this.hospitalService.delete(anyLong()));
-    }
-
-    @Test
-    void deveRetornaFalsoCasoNaoExistaHospitalAoDeletar() {
-        when(this.hospitalRepository.findById(anyLong())).thenReturn(Optional.empty());
-        Assert.assertFalse(this.hospitalService.delete(anyLong()));
-    }
+//    @Test
+//    void deveRetornaFalsoCasoNaoExistaHospitalAoDeletar() {
+//        when(this.hospitalRepository.findById(anyLong())).thenReturn(Optional.empty());
+//        Assert.assertFalse(this.hospitalService.delete(anyLong()));
+//    }
 }

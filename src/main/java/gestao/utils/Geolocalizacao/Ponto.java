@@ -4,22 +4,22 @@ import javax.validation.constraints.NotNull;
 
 public class Ponto {
     @NotNull
-    private final Long longitude;
+    private final Double longitude;
     @NotNull
-    private final Long latitude;
+    private final Double latitude;
 
 
-    public Ponto(Long longitude, Long latitude) {
+    public Ponto(Double longitude, Double latitude) {
         this.longitude = longitude;
         this.latitude = latitude;
     }
 
 
-    public Long getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public Long getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 }
