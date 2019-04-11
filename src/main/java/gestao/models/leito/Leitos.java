@@ -2,8 +2,6 @@ package gestao.models.leito;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 
-import javax.validation.constraintvalidation.SupportedValidationTarget;
-
 public class Leitos {
 
     @JsonEnumDefaultValue
