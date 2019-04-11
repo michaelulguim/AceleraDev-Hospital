@@ -1,6 +1,7 @@
 package gestao.utils.errors;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
+import gestao.exceptions.bases.RecursoNaoEncontradoException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
@@ -61,14 +62,8 @@ public class ApiErrorHandler extends ResponseEntityExceptionHandler {
 		return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, "Erro validação", subErros));
 	}
 
-	@ExceptionHandler(RuntimeException.class)
-	public ResponseEntity<Object> handleNotFoundException(final RuntimeException ex) {
-		ApiError api = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage());
-		ApiError apis= api;
-		return this.buildResponseEntity(api);
-	}
 
-	private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
+	protected static ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
        return new ResponseEntity<>(apiError, apiError.getStatus());
     }
 }
