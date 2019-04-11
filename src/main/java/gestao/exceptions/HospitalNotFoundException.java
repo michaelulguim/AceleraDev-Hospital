@@ -1,6 +1,8 @@
 package gestao.exceptions;
 
-public class HospitalNotFoundException extends RuntimeException {
+import javax.persistence.EntityNotFoundException;
+
+public class HospitalNotFoundException extends EntityNotFoundException {
     public HospitalNotFoundException() {
         super("Hospital não encontrado");
     }

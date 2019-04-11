@@ -3,15 +3,14 @@ package gestao.services;
 
 import gestao.exceptions.LeitoIndisponivelException;
 import gestao.exceptions.paciente.PacienteSemCheckinException;
-//import gestao.models.hospital.Leitos;
-import gestao.models.leito.TipoLeitoENUM;
-import gestao.models.leito.Leitos;
-import gestao.models.hospital.Hospital;
-import gestao.models.paciente.HistoricoPaciente;
-import gestao.respositories.HistoricoPacienteRepository;
-import gestao.models.paciente.Paciente;
-import gestao.respositories.PacienteRepository;
 import gestao.exceptions.paciente.PacienteSemCheckoutException;
+import gestao.models.hospital.Hospital;
+import gestao.models.leito.Leitos;
+import gestao.models.leito.TipoLeitoENUM;
+import gestao.models.paciente.HistoricoPaciente;
+import gestao.models.paciente.Paciente;
+import gestao.respositories.HistoricoPacienteRepository;
+import gestao.respositories.PacienteRepository;
 import gestao.respositories.hospital.HospitalRepository;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +18,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
+
+//import gestao.models.hospital.Leitos;
 
 @Service
 public class HistoricoPacienteService {

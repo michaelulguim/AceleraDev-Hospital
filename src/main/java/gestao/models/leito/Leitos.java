@@ -1,9 +1,12 @@
 package gestao.models.leito;
 
-import gestao.models.leito.TipoLeitoENUM;
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
+
+import javax.validation.constraintvalidation.SupportedValidationTarget;
 
 public class Leitos {
 
+    @JsonEnumDefaultValue
     private TipoLeitoENUM tipo;
 
     private Integer quantidade;

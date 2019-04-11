@@ -1,7 +1,5 @@
 package gestao.models.leito;
 
-import gestao.models.leito.TipoLeitoENUM;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
