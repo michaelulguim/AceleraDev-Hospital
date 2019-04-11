@@ -1,7 +1,7 @@
 package gestao.services;
 
 
-import gestao.exceptions.HospitalNotFoundException;
+import gestao.exceptions.HospitalNaoEncontradoException;
 import gestao.models.banco_de_sangue.BancoDeSangueFactory;
 import gestao.models.hospital.Hospital;
 import gestao.models.hospital.HospitalDTO;
@@ -12,7 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class HospitalService {
@@ -35,21 +34,22 @@ public class HospitalService {
         return this.repository.save(hospital);
     }
 
-    public Optional<Hospital> find(Long id) {
-        return this.repository.findById(id);
+    public Hospital find(Long id) {
+        return this.repository.findById(id)
+                .orElseThrow(() -> new HospitalNaoEncontradoException());
     }
 
     public void update(Long id, HospitalDTO hospitalDTO) {
         this.repository.findById(id).map(x -> {
             x.atualizarViaDTO(hospitalDTO);
             return this.repository.save(x);
-        }).orElseThrow(() -> new HospitalNotFoundException());
+        }).orElseThrow(() -> new HospitalNaoEncontradoException());
     }
 
     public void delete(Long id) {
-        if (! this.repository.findById(id).isPresent()) {
-            throw new HospitalNotFoundException();
-        }
+        this.repository.findById(id)
+                .orElseThrow(() -> new HospitalNaoEncontradoException());
+
         this.repository.deleteById(id);
     }
 

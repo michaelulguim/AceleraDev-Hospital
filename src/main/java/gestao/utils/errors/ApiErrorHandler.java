@@ -8,8 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -19,7 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 @Order(Ordered.HIGHEST_PRECEDENCE)
-@ControllerAdvice
+@RestControllerAdvice
 public class ApiErrorHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(EntityNotFoundException.class)
@@ -29,7 +29,7 @@ public class ApiErrorHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(java.lang.IllegalArgumentException.class)
 	public ResponseEntity<Object> handleIllegalArgumentException(final java.lang.IllegalArgumentException ex) {
-		return this.buildResponseEntity(new ApiError(HttpStatus.NOT_FOUND, ex.getLocalizedMessage()));
+		return this.buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage()));
 	}
 
 	@ExceptionHandler(JsonMappingException.class)
@@ -61,8 +61,14 @@ public class ApiErrorHandler extends ResponseEntityExceptionHandler {
 		return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, "Erro validação", subErros));
 	}
 
+	@ExceptionHandler(RuntimeException.class)
+	public ResponseEntity<Object> handleNotFoundException(final RuntimeException ex) {
+		ApiError api = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage());
+		ApiError apis= api;
+		return this.buildResponseEntity(api);
+	}
 
 	private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
-       return new ResponseEntity<Object>(apiError, apiError.getStatus());
+       return new ResponseEntity<>(apiError, apiError.getStatus());
     }
 }

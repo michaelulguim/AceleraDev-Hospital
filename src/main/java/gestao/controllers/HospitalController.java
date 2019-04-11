@@ -34,18 +34,16 @@ public class HospitalController {
     @GetMapping(params = {"page", "size"})
     @ApiOperation(value="Retorna uma lista de Hospitais")
     public ResponseEntity<List<Hospital>> index(@RequestParam("page") int page,
-                                                @RequestParam("size") int size) {
+                                                @RequestParam("size") int size
+    ) {
         return ResponseEntity.ok().body(service.findAll(PageRequest.of(page, size)).getContent());
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value="Retorna um Hospital")
     public ResponseEntity<Hospital> show(@PathVariable(value = "id") Long id) {
-        Optional<Hospital> hospital = this.service.find(id);
-        if (! hospital.isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok().body(hospital.get());
+        Hospital hospital = this.service.find(id);
+        return ResponseEntity.ok().body(hospital);
     }
 
     @PostMapping
